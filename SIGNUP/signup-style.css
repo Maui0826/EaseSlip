@@ -1,0 +1,90 @@
+h1{
+  text-align: center;
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+#signup-container{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container{
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  padding: 5% 5%;
+}
+
+#left-container{
+  background-color: #ffffff;
+}
+
+#right-container{
+  background-color: #ff93ac;
+}
+
+label{
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5rem;
+}
+
+input[type=text], 
+input[type=password],
+input[type=email]{
+  width: 90%;
+  display: flex;
+  padding: 14px 9px;
+  justify-content: center;
+  margin: 1rem 0%;
+  border: 0.1rem solid #f7b4a7;
+  background-color: #f9d4d4;
+  border-radius: 18px;
+}
+
+input[type=text]::placeholder, 
+input[type=password]::placeholder,
+input[type=email]::placeholder{
+  color: #737373;
+  font-size: 0.75rem;
+}
+
+#left-btn{
+  margin-top: 1rem;
+}
+
+.btn{
+  background-color: #ff5f5f;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+#right-container h1{
+  font-size: 1.75rem;
+  margin: 1rem 0;
+}
+
+.container p{
+  color: #000000;
+  font-size: 0.8rem;
+  margin: 0;
+  text-align: center;
+}
+
+.container img{
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin: 0 auto;
+}

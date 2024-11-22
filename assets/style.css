@@ -1,0 +1,15 @@
+@font-face {
+  src: url(/fonts/Roboto-Regular.ttf);
+  font-family: Roboto-Regular;
+}
+@font-face {
+  src: url(/fonts/OpenSans-VariableFont_wdth\,wght.ttf);
+  font-family: OpenSans;
+}
+
+body{
+  font-family: 'Poppins', OpenSans, Roboto-Regular ;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
