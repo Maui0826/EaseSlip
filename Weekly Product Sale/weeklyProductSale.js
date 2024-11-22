@@ -1,14 +1,14 @@
-// Function to create and insert product items
-function createProductItems(num) {
-    const container = document.getElementById('product-item'); // Get the container
-    container.innerHTML = ''; // Clear any existing content
+// Function to repeat the product-item div a specified number of times
+function repeatProductItems(num) {
+    const container = document.getElementById('product-item-container'); // Get the container element
 
-    // Loop to create the desired number of product items
+    // Loop to create and insert the desired number of product items
     for (let i = 0; i < num; i++) {
+        // Create a new product-item div
         const productItem = document.createElement('div');
         productItem.classList.add('product-item'); // Add class for styling
 
-        // Add HTML content for each product item
+        // Add HTML content to the new product-item div
         productItem.innerHTML = `
             <img src="/assets/LOGO.png" alt="LOGO">
             <div class="product-details">
@@ -18,10 +18,11 @@ function createProductItems(num) {
             </div>
         `;
 
-        // Append the new product item to the container
+        // Append the new product-item div to the container
         container.appendChild(productItem);
     }
 }
 
-// Example: Create 5 product items
-createProductItems(5);
+// Example: Repeat the product item 5 times
+repeatProductItems(8);
+

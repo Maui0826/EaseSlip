@@ -1,14 +1,21 @@
 .wps-container {
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
+    display: inline;
     align-items: center;
     background-color: #f5f5f5;
+    width: 100%;
 }
 
- h1 {
+.total-wps {
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    position: sticky;
+    background-color: #ff93ac;
+    padding: 20px;
+}
+
+h1 {
     background-color: #ff93ac;
     color: #fff;
     text-align: center;
@@ -16,23 +23,25 @@
     margin: 0;
     font-size: 2em;
     border-radius: 5px 5px 0 0;
+    width: 100%;
 }
 
 .product-item-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-wrap: wrap; /* This ensures the items wrap into new rows when necessary */
+    justify-content: space-around; /* This evenly spaces items across each row */
     padding: 20px;
+    width: 100%;
 }
 
 .product-item {
     background-color: #fff;
     border: 2px solid #ddd;
-    width: 250px;
     margin: 10px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 15px;
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
 }
