@@ -71,6 +71,11 @@ input[type=text]::placeholder, input[type=password]::placeholder{
   cursor: pointer;
 }
 
+.btn-signin a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
 
 #right-container h1{
   font-size: 1.75rem;
