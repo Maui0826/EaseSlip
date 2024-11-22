@@ -1,0 +1,32 @@
+.WeeklySale-container{
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.WeeklySale-container h1 {
+    text-align: center;
+    width: 100%;
+    position:relative;
+}
+
+.monthly-calendar, .weekly-calendar{
+    padding: 20px;
+    text-align: center;
+}
+
+.weeklySale-chart {
+    align-items: center;
+    padding: 40px;
+    border: 1px;
+    width: 100%;
+    background-color: #ff93ac;
+}
+
+.weeklySaleTotal h3 {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+}
+
