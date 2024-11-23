@@ -6,6 +6,13 @@
   src: url(/fonts/OpenSans-VariableFont_wdth\,wght.ttf);
   font-family: OpenSans;
 }
+:root{
+  --text: #050506;
+--background: #ffffff;
+--primary: #ff93ac;
+--secondary: #f9d4d4;
+--accent: #6262d1;
+}
 
 body{
   font-family: 'Poppins', OpenSans, Roboto-Regular ;

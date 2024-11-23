@@ -3,43 +3,107 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inventory</title>
+    <title>Inventory System</title>
     <link rel="stylesheet" href="/assets/style.css" />
     <link rel="stylesheet" href="inventory-style.css" />
+    <script src="inventory-script.js"></script>
   </head>
   <body>
-    <div id="inventory-container">
-      <a href="#">Back</a>
-      <div id="inventory">
-        <h1>Inventory</h1>
-
-        <table id="myTable" class="display">
-          <thead>
-            <tr>
-              <th>Column 1</th>
-              <th>Column 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Row 1 Data 1</td>
-              <td>Row 1 Data 2</td>
-            </tr>
-            <tr>
-              <td>Row 2 Data 1</td>
-              <td>Row 2 Data 2</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="purchases">
+    <div id="container">
+      <h1>Inventory System</h1>
+      <div id="purchase">
         <h2>Purchases</h2>
+        <form method="POST" name="purchases">
+          <p>
+            Date:
+            <input type="date" name="date" />
+          </p>
+          <p>Product: <input type="text" name="product" /></p>
+          <p>Quantity: <input type="text" name="quantity" /></p>
+          <p>Unit Cost: <input type="text" name="unitCost" /></p>
+          <p>Total Cost: <input type="text" name="totalCost" /></p>
+          <br />
+
+          <!-- Container for dynamically added fields -->
+          <div id="extra-fields-container"></div>
+
+          <button type="button" onclick="addNewField()">Add New Field</button>
+          <button type="button" onclick="addPurchase()">Add Data</button>
+          <hr />
+
+          <table id="tbl" border="1">
+            <thead>
+              <tr id="table-headers">
+                <th>Date</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Cost</th>
+                <th>Total Cost</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </form>
+        <br /><br />
+        <hr />
       </div>
       <div id="sales">
         <h2>Sales</h2>
+        <form method="POST" name="sales">
+          <p>Date: <input type="date" name="date" /></p>
+          <p>Expense: <input type="text" name="expense" /></p>
+          <p>Sales: <input type="text" name="sales" /></p>
+          <p>Total Amount: <input type="text" name="amount" /></p>
+          <br /><br />
+
+          <!-- Container for dynamically added fields -->
+          <div id="extra-fields-container"></div>
+
+          <button type="button" onclick="addNewField()">Add New Field</button>
+          <button type="button" onclick="addSales()">Add Data</button>
+          <hr />
+
+          <table id="tbl2" border="1">
+            <thead>
+              <tr id="table-headers">
+                <th>Date</th>
+                <th>Total Expense</th>
+                <th>Total Sales</th>
+                <th>Total Amount</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </form>
+        <br />
+        <hr />
       </div>
       <div id="stocks">
         <h2>Stocks</h2>
+        <form method="POST" name="stocks">
+          <p>Product: <input type="text" name="product" /></p>
+          <p>Quantity: <input type="text" name="quantity" /></p>
+          <p>Unit price: <input type="text" name="unitPrice" /></p>
+          <br />
+
+          <!-- Container for dynamically added fields -->
+          <div id="extra-fields-container"></div>
+
+          <button type="button" onclick="addNewField()">Add New Field</button>
+          <button type="button" onclick="addStocks()">Add Data</button>
+          <hr />
+
+          <table id="tbl3" border="1">
+            <thead>
+              <tr id="table-headers">
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </form>
       </div>
     </div>
   </body>
