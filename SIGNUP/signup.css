@@ -1,13 +1,15 @@
-
 h1{
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 700;
   margin-top: 0;
+  margin-bottom: 1rem;
 }
 
-#login-container{
+#signup-container{
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
   width: 100vw;
 }
@@ -19,20 +21,22 @@ h1{
 }
 
 #left-container{
-  background-color: #ffffff;
+  position: sticky;
+  background-color: var(--primary);
+  height: 640px;
 }
 
-#right-container{
-  background-color: #ff93ac;
-}
+
 
 label{
-  font-size: 1.25em;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 5rem;
 }
 
-input[type=text], input[type=password]{
+input[type=text], 
+input[type=password],
+input[type=email]{
   width: 90%;
   display: flex;
   padding: 14px 9px;
@@ -43,22 +47,18 @@ input[type=text], input[type=password]{
   border-radius: 18px;
 }
 
-input[type=text]::placeholder, input[type=password]::placeholder{
+input[type=text]::placeholder, 
+input[type=password]::placeholder,
+input[type=email]::placeholder{
   color: #737373;
-  font-size: 1rem;
-}
-
-#left-container a{
-  color: #000000;
   font-size: 0.75rem;
-  display: block;
 }
 
 #left-btn{
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
-.btn-signin{
+.btn{
   background-color: #ff5f5f;
   color: #ffffff;
   font-size: 1rem;
@@ -69,29 +69,4 @@ input[type=text]::placeholder, input[type=password]::placeholder{
   margin-top: 1rem;
   padding: 1rem 2rem;
   cursor: pointer;
-}
-
-.btn-signin a {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-
-#right-container h1{
-  font-size: 1.75rem;
-  margin: 1rem 0;
-}
-
-.container p{
-  color: #000000;
-  font-size: 0.8rem;
-  margin: 0;
-  text-align: center;
-}
-
-.container img{
-  width: 200px;
-  height: 200px;
-  display: block;
-  margin: 0 auto;
 }
