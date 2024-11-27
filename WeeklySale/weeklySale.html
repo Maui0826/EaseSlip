@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Sales Dashboard </title>
+    <link rel="stylesheet" href="weeklySale.css">
+</head>
+<body>
+    <div class="WeeklySale-container">
+        <h1>
+            WEEKLY SALE DASHBOARD
+        </h1>
+        <div class="monthly-calendar">
+            <label for="month-select">Month:</label>
+            <select id="month-select">
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+        </div>
+        <div class="weekly-calendar">
+            <label for="week-range">Week Range:</label>
+            <select id="week-range">
+                <option value="Week 1">Week 1</option>
+                <option value="Week 2">Week 2</option>
+                <option value="Week 3">Week 3</option>
+                <option value="Week 4">Week 4</option>
+            </select>
+        </div>
+        <div class="weeklySale-chart">
+            <canvas id="salesChart">
+
+            </canvas>
+            <h1>Chart</h1>
+        </div>
+        <div class="weeklySaleTotal">
+            <h3 id="totalWeeklySale">Total Weekly Sale:</h3>
+        </div>
+    </div>
+    <script src="weeklySale.js"></script>
+</body>
+</html>

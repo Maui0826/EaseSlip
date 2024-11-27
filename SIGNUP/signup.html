@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EASESLIP</title>
     <link rel="stylesheet" href="/assets/style.css" />
-    <link rel="stylesheet" href="signup-style.css" />
+    <link rel="stylesheet" href="signup.css" />
   </head>
   <body>
     <div id="signup-container">
       <div id="left-container" class="container">
-        <form class="left-forms">
+        <form class="left-forms" action="register.php" method="POST">
           <h1>CREATE ACCOUNT</h1>
           <label for="CompanyID">Company ID:</label>
           <input
@@ -40,8 +40,10 @@
             placeholder="Confirm Password"
             required
           />
-          <button id="left-btn" class="btn">SIGN UP</button>
-          <button class="btn">GO TO SIGN IN</button>
+          <button id="left-btn" class="btn" type="submit">SIGN UP</button>
+          <button class="btn-signup" id="btn-signup">
+            <a href="/LOGIN/login.html">ALREADY HAVE AN ACCOUNT?</a>
+          </button>
         </form>
       </div>
     </div>
