@@ -27,8 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Query to fetch user data
-    $sql = "SELECT * FROM registration WHERE companyID = '$companyID'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM registration WHERE companyID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $companyID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // User exists, fetch the data
@@ -41,15 +44,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['company_id'] = $user['companyID'];
             $_SESSION['email'] = $user['email'];
 
-            // Redirect to dashboard
-            header("Location: /dashboard.php");
-            exit;
+            // Redirect based on companyID
+            if ($companyID === 'admin') {
+                header("Location: /dashboard.html");
+                exit;
+            } else {
+                header("Location: /POS.html");
+                exit;
+            }
         } else {
             echo "Incorrect password. Please try again.";
         }
     } else {
         echo "No account found with the provided Company ID.";
     }
+
+    $stmt->close();
 }
 
 // Close connection
