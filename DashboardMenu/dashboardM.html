@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="dashboardM.css">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Side Navigation Bar -->
+    <nav class="sidebar">
+      <ul>
+        <li class="active" id="dashboard-tab">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
+        </li>
+        <li id="inventory-tab">
+          <i class="fas fa-warehouse"></i>
+          <span>Inventory</span>
+        </li>
+        <li id="daily-sales-tab">
+          <i class="fas fa-calendar-day"></i>
+          <span>Daily Sales</span>
+        </li>
+        <li id="daily-product-sales-tab">
+          <i class="fas fa-box"></i>
+          <span>Daily Product Sales</span>
+        </li>
+        <li id="weekly-sales-tab">
+          <i class="fas fa-calendar-week"></i>
+          <span>Weekly Sales</span>
+        </li>
+        <li id="weekly-product-sales-tab">
+          <i class="fas fa-box-open"></i>
+          <span>Weekly Product Sales</span>
+        </li>
+        <li id="monthly-sales-tab">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Monthly Sales</span>
+        </li>
+        <li id="monthly-product-sales-tab">
+          <i class="fas fa-cubes"></i>
+          <span>Monthly Product Sales</span>
+        </li>
+        <li id="logout-tab" class="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </nav>
+
+    
+      
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div class="header-container">
+              <!-- Name and Menu Tab -->
+              <div class="header-left">
+                <span class="header-name">Dashboard</span>
+                <button class="menu-btn">
+                  <i class="fas fa-bars"></i>
+                </button>
+              </div>
+          
+              <!-- Search Tab -->
+              <div class="header-search">
+                <input type="text" placeholder="Search..." />
+                <button class="search-btn">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+          
+              <!-- Icon Tabs and Profile -->
+              <div class="header-right">
+                <div class="icon-tabs">
+                  <i class="fas fa-bell"></i>
+                  <i class="fas fa-envelope"></i>
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div class="profile-tab">
+                  <img src="https://via.placeholder.com/40" alt="Profile Image" />
+                </div>
+              </div>
+            </div>
+          </header>
+      <div class="main-section" id="main-section">
+        <p>Select a category from the navigation bar.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="dashboardM.js"></script>
+</body>
+</html>

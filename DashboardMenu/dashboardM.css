@@ -1,0 +1,227 @@
+:root {
+    --text: #050506;
+    --background: #ffffff;
+    --primary: #ff93ac;
+    --secondary: #f9d4d4;
+    --accent: #6262d1;
+    --button: #ff5f5f;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--background);
+  }
+  
+  .dashboard {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    width: 20vw;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    border-right: 2px solid var(--primary);
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .sidebar ul li i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .sidebar ul li.active {
+    background-color: var(--primary);
+    color: var(--background);
+  }
+  
+  .sidebar ul li:hover {
+    background-color: var(--accent);
+    color: var(--background);
+  }
+  
+  .sidebar ul li.logout {
+    color: var(--button);
+    font-weight: bold;
+  }
+  
+  .sidebar ul li.logout:hover {
+    background-color: var(--button);
+    color: var(--background);
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, var(--primary), var(--accent));
+  }
+  
+  .main-section {
+    width: 95%;
+    height: 80%;
+    background-color: var(--background);
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  /* Header Section */
+.header {
+    width: 100%;
+    padding: 0.8rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+  }
+  
+  /* Header Left */
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .header-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text);
+  }
+  
+  .menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text);
+  }
+  
+  .menu-btn:hover {
+    color: var(--accent);
+  }
+  
+  /* Search Tab */
+  .header-search {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    background-color: var(--background);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .header-search .search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+  
+  .header-search .search-btn:hover {
+    color: var(--primary);
+  }
+  
+  /* Icon Tabs */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .icon-tabs i {
+    font-size: 1.5rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .icon-tabs i:hover {
+    color: var(--accent);
+  }
+  
+  /* Profile Tab */
+  .profile-tab img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 25vw;
+    }
+  
+    .main-section {
+      width: 90%;
+      height: 70%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sidebar {
+      width: 30vw;
+    }
+  
+    .main-section {
+      width: 95%;
+      height: 65%;
+    }
+  }
+  

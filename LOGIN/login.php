@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $user['email'];
 
             // Redirect to dashboard
-            header("Location: /dashboard.php");
+            header("Location: /DashboardMenu/dashboard.html");
             exit;
         } else {
             echo "Incorrect password. Please try again.";
