@@ -17,19 +17,19 @@ if ($conn->connect_error) {
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
-    $companyID = $_POST['CompanyID'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Validate inputs
-    if (empty($companyID) || empty($password)) {
+    if (empty($username) || empty($password)) {
         echo "Please fill in both fields.";
         exit;
     }
 
     // Query to fetch user data
-    $sql = "SELECT * FROM registration WHERE companyID = ?";
+    $sql = "SELECT * FROM registration WHERE username = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $companyID);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password'])) {
             // Password is correct, create a session
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['company_id'] = $user['companyID'];
+            $_SESSION['username_id'] = $user['username'];
             $_SESSION['email'] = $user['email'];
 
-            // Redirect based on companyID
-            if ($companyID === 'admin') {
+            // Redirect based on username
+            if ($username === 'admin') {
                 header("Location: /DashboardMenu/dashboardM.html");
                 exit;
             } else {

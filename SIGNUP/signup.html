@@ -1,51 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EASESLIP</title>
-    <link rel="stylesheet" href="/assets/style.css" />
-    <link rel="stylesheet" href="signup.css" />
-  </head>
-  <body>
-    <div id="signup-container">
-      <div id="left-container" class="container">
-        <form class="left-forms" action="register.php" method="POST">
-          <h1>CREATE ACCOUNT</h1>
-          <label for="CompanyID">Company ID:</label>
-          <input
-            type="text"
-            name="CompanyID"
-            placeholder="Enter Company ID"
-            required
-          />
-          <label for="Email">Email:</label>
-          <input
-            type="email"
-            name="Email"
-            placeholder="Enter Email Address"
-            required
-          />
-          <label for="Password">Password:</label>
-          <input
-            type="password"
-            name="Password"
-            placeholder="Enter Password"
-            required
-          />
-          <label for="conPassword">Confirm Password:</label>
-          <input
-            type="password"
-            name="conPassword"
-            placeholder="Confirm Password"
-            required
-          />
-          <button id="left-btn" class="btn" type="submit"><a href="/LOGIN/login.html">SIGN UP</a></button>
-          <button class="btn-signup" id="btn-signup">
-            <a href="/LOGIN/login.html">ALREADY HAVE AN ACCOUNT?</a>
-          </button>
-        </form>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signup.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <form action="register.php" method="POST">
+                <h1>Register</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Username" name="username"required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="Email" name="email" required>
+                    <i class='bx bxs-envelope' ></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" name="password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Confirm Password" name="conPassword" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+    
+            <div class="register-link">
+                <p>Already have an account? <a href="/LOGIN/login-1.html">Login</a></p>
+            </div>
+        </div>
     </div>
-  </body>
+</body>
 </html>

@@ -15,9 +15,9 @@ if ($conn->connect_error) {
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
-    $companyID = $conn->real_escape_string($_POST['CompanyID']);
-    $email = $conn->real_escape_string($_POST['Email']);
-    $password = $_POST['Password'];
+    $username = $conn->real_escape_string($_POST['username']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $_POST['password'];
     $conPassword = $_POST['conPassword'];
 
     // Check if passwords match
@@ -30,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert query
-    $sql = "INSERT INTO registration (companyID, email, password) VALUES ('$companyID', '$email', '$hashedPassword')";
+    $sql = "INSERT INTO registration (username, email, password) VALUES ('$username', '$email', '$hashedPassword')";
 
     // Execute the query and check for success
     if ($conn->query($sql) === TRUE) {
-        echo "New account created successfully";
+        header("Location: /LOGIN/login-1.html");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
