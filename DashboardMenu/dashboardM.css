@@ -52,6 +52,11 @@
     transition: all 0.3s ease;
     border-radius: 8px;
   }
+
+  .sidebar ul li a {
+    text-decoration: none;
+    color: inherit;
+  }
   
   .sidebar ul li i {
     margin-right: 1rem;

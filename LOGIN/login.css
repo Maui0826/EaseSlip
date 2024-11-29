@@ -89,8 +89,13 @@ button.btn-signin {
   text-align: center;
 }
 
+button.btn a{
+  text-decoration: none;
+  color: inherit;
+}
+
 button.btn-signin:hover {
-  background-color: darken(var(--button), 10%);
+  background-color: var(--accent);
 }
 
 #btn-login {

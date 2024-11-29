@@ -81,8 +81,13 @@ button.btn {
   text-align: center;
 }
 
+button.btn a{
+  text-decoration: none;
+  color: inherit;
+}
+
 button.btn:hover {
-  background-color: darken(var(--button), 10%);
+  background-color: var(--accent);
 }
 
 button.btn-signup {

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: /DashboardMenu/dashboardM.html");
                 exit;
             } else {
-                header("Location: /POS/index.html");
+                header("Location: /POS/billing.html");
                 exit;
             }
         } else {

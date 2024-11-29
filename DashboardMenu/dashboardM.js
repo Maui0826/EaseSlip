@@ -1,3 +1,15 @@
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  if (sidebar.style.width === "250px") {
+      sidebar.style.width = "0";
+  } else {
+      sidebar.style.width = "250px";
+  }
+}
+
+function closeSidebar() {
+  document.getElementById("sidebar").style.width = "0";
+}
 const tabs = document.querySelectorAll('.sidebar ul li');
 const mainSection = document.getElementById('main-section');
 
