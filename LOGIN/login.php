@@ -1,18 +1,6 @@
 <?php
-session_start(); // Start the session to manage user sessions
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "registration";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start(); 
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,18 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "registration";
+session_start();
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Initialize response variable
+$response = '';
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
     $username = $conn->real_escape_string($_POST['username']);
@@ -22,24 +14,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if passwords match
     if ($password !== $conPassword) {
-        echo "Passwords do not match!";
-        exit;
+        $response = "Passwords do not match!";
     }
 
-    // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    // Check if email or username already exists
+    $checkQuery = "SELECT * FROM registration WHERE email = '$email' OR username = '$username'";
+    $result = $conn->query($checkQuery);
 
-    // Insert query
-    $sql = "INSERT INTO registration (username, email, password) VALUES ('$username', '$email', '$hashedPassword')";
+    if ($result->num_rows > 0) {
+        // Fetch the conflicting row
+        $row = $result->fetch_assoc();
+        if ($row['email'] === $email) {
+            $response = "This email is already registered.";
+        } elseif ($row['username'] === $username) {
+            $response = "This username is already taken.";
+        }
+    }
 
-    // Execute the query and check for success
-    if ($conn->query($sql) === TRUE) {
-        header("Location: /LOGIN/login-1.html");
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+    // If no errors, proceed with registration
+    if (empty($response)) {
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO registration (username, email, password, status, code) 
+                VALUES ('$username', '$email', '$hashedPassword', 'verified', 0)";
+
+        if ($conn->query($sql) === TRUE) {
+            $response = 'success';  // Return success message to JavaScript
+        } else {
+            $response = "Error: " . $conn->error;
+        }
     }
 }
 
 // Close connection
 $conn->close();
+
+// Return the response to JavaScript
+echo $response;
 ?>
+
