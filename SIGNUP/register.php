@@ -2,9 +2,8 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-// Initialize response variable
-$response = '';
 
+// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
     $username = $conn->real_escape_string($_POST['username']);
@@ -14,7 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if passwords match
     if ($password !== $conPassword) {
-        $response = "Passwords do not match!";
+        echo "<script>alert('Passwords do not match!');
+        window.location.href = '/SIGNUP/signup.html';
+        </script>";
+        exit;
     }
 
     // Check if email or username already exists
@@ -25,31 +27,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Fetch the conflicting row
         $row = $result->fetch_assoc();
         if ($row['email'] === $email) {
-            $response = "This email is already registered.";
+            echo "<script> alert('This email is already taken.');
+            window.location.href = '/SIGNUP/signup.html';
+            </script>";
+            exit;
         } elseif ($row['username'] === $username) {
-            $response = "This username is already taken.";
+            echo "<script> alert('This username is already taken.');
+            window.location.href = '/SIGNUP/signup.html';
+            </script>";
+            exit;
         }
     }
 
     // If no errors, proceed with registration
-    if (empty($response)) {
+    if (empty($emailError) && empty($usernameError)) {
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert query to add the user to the database
         $sql = "INSERT INTO registration (username, email, password, status, code) 
                 VALUES ('$username', '$email', '$hashedPassword', 'verified', 0)";
 
         if ($conn->query($sql) === TRUE) {
-            $response = 'success';  // Return success message to JavaScript
+            header("Location: /LOGIN/login.html");
+            exit;
         } else {
-            $response = "Error: " . $conn->error;
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
     }
 }
 
 // Close connection
 $conn->close();
-
-// Return the response to JavaScript
-echo $response;
 ?>
+
 
