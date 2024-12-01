@@ -1,11 +1,12 @@
-:root{
-    --text: #050506;
-    --background: #ffffff;
-    --primary: #ff93ac;
-    --secondary: #f9d4d4;
-    --accent: #6262d1;
-    --button: #ff5f5f;
-    }
+:root {
+    --text: #042A2B;
+    --background: #EAF7F5;
+    --primary: #98DBC6;
+    --secondary: #5BC8AC;
+    --accent: #053F5E;
+    --button: #379683;
+}
+
   body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -22,16 +23,50 @@
       height: 100%;
       padding-top: 30px;
   }
-  .header {
-    top: 0;
-    left: 0;
-    color: #f5f5f5;
-    padding: 5px 5%;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary);
+    padding: 10px 20px;
+    color: white;
     position: fixed;
     width: 100%;
-    z-index: 100;
-    background: var(--primary);
-  }
+    top: 0;
+    z-index: 999;
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-center {
+    justify-content: center;
+}
+
+.header-right {
+    justify-content: flex-end;
+    margin-right: 30px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.search-bar {
+    width: 80%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+}
+
+.header-placeholder {
+    color: var(--background);
+    font-size: 16px;
+}
+
   
   .sidebar-toggle {
     font-size: 30px;
@@ -94,7 +129,7 @@
       border-right: none;
   }
   .section.bill {
-      flex: 0.4; /* Shortened section three */
+      flex: 0.5; 
       background-color: var(--secondary);
   }
   h2 {
@@ -102,67 +137,298 @@
       margin-bottom: 20px;
       color: var(--accent);
   }
-  .categories button {
-      display: block;
-      width: 100%;
-      margin: 5px 0;
-      padding: 10px;
-      border: none;
-      background-color: var(--button);
-      color: var(--background);
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-  }
-  .categories button:hover {
-      background-color: var(--accent);
-  }
-  .section.categories {
-      flex: 0.2; /* Reduced width of category section */
-  }
-  .items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: left;
-      padding-top: 40px;
-  }
-  .card {
-      width: 20%; /* Adjust width to fit 5 items in a row */
-      height: 270px; /* Adjusted height */
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      text-align: center;
-      padding: 10px;
-      background-color: var(--secondary);
-      transition: background-color 0.3s ease;
-      cursor: pointer;
-  }
-  .card img {
-      max-width: 100%;
-      height: 150px; 
-      object-fit: cover;
-      border-radius: 5px;
-  }
-  .card .price {
-      margin-bottom: 5px; /* Decreased bottom padding */
-  }
-  .card:hover {
-      background-color: var(--primary);
-  }
-  .bill table {
-      width: 100%;
-      border-collapse: collapse;
-  }
-  .bill table th, .bill table td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-  }
-  .bill table th {
-      background-color: var(--primary);
-      color: var(--background);
-  }
+  .categories {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.categories h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: var(--accent);
+}
+
+.categories button {
+    display: inline-block;
+    width: 90%; 
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--background);
+    background-color: var(--button);
+    border: none;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.categories button:hover {
+    background-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.categories a {
+    text-decoration: none;
+}
+
+.section.categories {
+    flex: 0.25; 
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.items {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+.card {
+    width: 30%;
+    height: 350px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    align-items: center;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--background);
+    flex-grow: 1;
+    box-sizing: border-box;
+    height: calc(100% - 180px);
+}
+
+.card-content h4 {
+    font-size: 1.3em;
+    color: var(--text);
+    font-weight: bold;
+    margin: 2px 0;
+}
+
+.card-content p {
+    font-size: 1.1em;
+    color: var(--text);
+    margin: 1px 0; 
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    background-color: var(--primary);
+}
+
+.card-content p span {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.bill {
+    padding: 15px;
+    background-color: var(--secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#subtotal-view, #amount-paid, #invoice-info {
+    margin-bottom: 20px;
+}
+
+#amount-paid {
+    width: 94%;
+    margin: 10px 0;
+}
+
+#amount-paid label {
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#customer-payment {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+#customer-payment::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.header-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 50px;
+}
+
+.header-placeholder img {
+    max-width: 80px; 
+    max-height: 40px; 
+    object-fit: contain;
+}
+
+#customer-payment:focus {
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+.qty-actions {
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 100%; 
+    padding: 0; 
+    vertical-align: middle; 
+    box-sizing: border-box; 
+}
+
+.qty-actions button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1rem;
+    height: auto; 
+    transition: background-color 0.3s ease;
+}
+
+.qty-actions button:hover {
+    background-color: #0056b3;
+}
+
+.qty-actions .qty {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0 10px;
+    min-width: 20px;
+    text-align: center;
+    line-height: normal; 
+}
+
+
+#pay-button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background-color: green;
+    color: var(--background);
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pay-button:hover {
+    background-color: var(--accent);
+}
+
+#invoice-info p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.bill table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bill table th, .bill table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center; 
+    vertical-align: middle;
+    height: 50px; 
+    box-sizing: border-box; 
+}
+
+
+.bill table th {
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+.bill table td img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.bill table td button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-weight: bold;
+}
+
+#grand-total-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sub-total-label {
+    font-size: 1.2em;
+}
+
+#grand-total-container {
+    display: flex;
+    align-items: baseline;
+}
+
+#grand-total {
+    font-size: 4em;
+    margin-right: 0.1em;
+}
+
+#grand-total-dec {
+    font-size: 3.5em;
+    margin-left: 0.1em;
+}
+
+
   #checkout-button {
       margin-top: 10px;
       width: 100%;

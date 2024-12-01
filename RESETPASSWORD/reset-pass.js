@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isOtpDisplayed) {
       const otpField = document.createElement("div");
       otpField.innerHTML = `
-        <label for="otp">OTP:</label>
         <input type="text" id="otp" placeholder="Enter OTP" required />
         <button type="button" id="verify-otp-btn">Verify OTP</button>
       `;

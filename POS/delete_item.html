@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock List</title>
+    <style>
+        :root {
+            --text: #042A2B;
+            --background: #EAF7F5;
+            --primary: #98DBC6;
+            --secondary: #5BC8AC;
+            --accent: #053F5E;
+            --button: #379683;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background-color: var(--secondary);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            background-color: var(--background);
+            border-radius: 12px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .stock-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stock-item {
+            background-color: var(--background);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .stock-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stock-info {
+            font-size: 1.1em;
+            color: var(--text);
+        }
+
+        .delete-btn {
+            background-color: var(--button);
+            color: var(--background);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: darken(var(--button), 10%);
+        }
+
+        .stock-item .category {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .back-button {
+            align-content: center;
+            align-items: center;
+            background: #ddd;
+            color: var(--text);
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: normal;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto; 
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background: var(--accent);
+            color: var(--background);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Stock List</h2>
+        <ul class="stock-list" id="stock-list">
+        </ul>
+        <button type="button" class="back-button" onclick="window.location.href='billing.html'">Go Back</button>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function loadStock() {
+            $.get('fetch_stock.php', function(data) {
+                const items = JSON.parse(data);
+                const stockList = document.getElementById('stock-list');
+                stockList.innerHTML = ''; 
+                items.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('stock-item');
+                    listItem.innerHTML = `
+                        <div class="stock-info">
+                            <span class="category">${item.category}</span> - ${item.name}
+                        </div>
+                        <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+                    `;
+                    stockList.appendChild(listItem);
+                });
+            });
+        }
+
+        function deleteItem(itemId) {
+            const confirmDelete = confirm("Are you sure you want to delete this item?");
+            if (confirmDelete) {
+                $.ajax({
+                    url: 'delete_item.php',
+                    type: 'POST',
+                    data: { id: itemId },
+                    success: function(response) {
+                        alert(response);
+                        loadStock();
+                    },
+                    error: function() {
+                        alert('An error occurred while deleting the item.');
+                    }
+                });
+            }
+        }
+
+        window.onload = loadStock;
+    </script>
+</body>
+</html>
