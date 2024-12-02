@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/EaseSlip/assets/connection.php";
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
 
 // Check if the form is submitted
@@ -26,17 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         // Fetch the conflicting row
         $row = $result->fetch_assoc();
-        if ($row['email'] === $email) {
-            echo "<script> alert('This email is already taken.');
-            window.location.href = '/SIGNUP/signup.html';
-            </script>";
-            exit;
-        } elseif ($row['username'] === $username) {
+        if ($row['username'] === $username) {
             echo "<script> alert('This username is already taken.');
             window.location.href = '/SIGNUP/signup.html';
             </script>";
             exit;
-        }
+        } 
     }
 
     // If no errors, proceed with registration

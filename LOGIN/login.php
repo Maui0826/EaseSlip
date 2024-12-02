@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-require "/xampp/htdocs/EaseSlip/assets/connection.php";
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
