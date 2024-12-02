@@ -11,67 +11,84 @@ function toggleSidebar() {
     document.getElementById("sidebar").style.width = "0";
   }
 
-function fetchCategories() {
+  function fetchCategories() {
     $.get('get_categories.php', function (data) {
-        const categories = JSON.parse(data);
+        const response = JSON.parse(data);
+        const username = response.username;  // Get the username from the response
+        const categories = response.categories;  // Get the categories from the response
+
+        // Update the username in the h1 element
+        $('#username').text(username ? `Welcome, ${username}` : 'Welcome, Guest');  // Display username
+
         const categoriesDiv = $('.categories');
         categories.forEach(category => {
             const button = $(`<button>${category}</button>`);
             button.click(() => fetchItems(category));
             categoriesDiv.append(button);
         });
-        fetchItems(); // 
+
+        // Optionally, fetch items for the first category (if needed)
+        fetchItems();
     });
 }
 
+
 function fetchItems(category = null) {
+    // Send a GET request with the category parameter (if provided)
     $.get('get_items.php', { category }, function (data) {
-        const items = JSON.parse(data);
-        const itemsDiv = $('.items').empty();
+        const items = JSON.parse(data); // Parse the JSON response
+        const itemsDiv = $('.items').empty(); // Clear any existing items
+        
+        // Loop through each item and create a card
         items.forEach(item => {
             const card = $(`
-                <div class="card" data-id="${item.id}" data-name="${item.name.toLowerCase()}">
-                    <img src="${item.image_path}" alt="${item.name}">
-                    <h4>${item.name}</h4>
-                    <p>Price: ${item.price} PHP</p>
-                    <p>Stock: ${item.quantity}</p>
+                <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
+                    <img src="${item.image_path}" alt="${item.prod_name}">
+                    <h4>${item.prod_name}</h4>
+                    <p>Price: ${item.prod_price} PHP</p>
+                    <p>Stock: ${item.prod_quantity}</p>
                 </div>
             `);
 
-            if (item.quantity === 0) {
+            // If the product quantity is 0, set opacity to 0.5 to show it's out of stock
+            if (item.prod_quantity === 0) {
                 card.css('opacity', 0.5);
             }
 
+            // Add a click handler to add the item to the bill (or cart)
             card.click(() => addToBill(item));
+
+            // Append the card to the itemsDiv
             itemsDiv.append(card);
         });
     });
 }
 
+
 function addToBill(item) {
-    if (item.quantity <= 0) {
+    if (item.prod_quantity <= 0) {
         alert('This item is out of stock.');
         return;
     }
 
     const billBody = $('#bill-body');
-    const existingRow = billBody.find(`tr[data-id="${item.id}"]`);
+    const existingRow = billBody.find(`tr[data-id="${item.productID}"]`);
 
     if (existingRow.length > 0) {
         const qtyCell = existingRow.find('.qty');
         const totalCell = existingRow.find('.total');
         const newQty = parseInt(qtyCell.text()) + 1;
 
-        if (newQty > item.quantity) {
+        if (newQty > item.prod_quantity) {
             alert('Insufficient stock!');
             return;
         }
         qtyCell.text(newQty);
-        totalCell.text((newQty * item.price).toFixed(2));
+        totalCell.text((newQty * item.prod_price).toFixed(2));
 
-        item.quantity--;
-        if (item.quantity === 0) {
-            const itemCard = $(`.card[data-id="${item.id}"]`);
+        item.prod_quantity--;
+        if (item.prod_quantity === 0) {
+            const itemCard = $(`.card[data-id="${item.productID}"]`);
             itemCard.css('opacity', 0.5);
         }
 
@@ -79,15 +96,15 @@ function addToBill(item) {
         updateInvoiceInfo();
     } else {
         const row = $(`
-            <tr data-id="${item.id}">
-                <td><img src="${item.image_path}" alt="${item.name}"></td>
-                <td>${item.name}</td>
+            <tr data-id="${item.productID}">
+                <td><img src="${item.image_path}" alt="${item.prod_name}"></td>
+                <td>${item.prod_name}</td>
                 <td class="qty-actions">
                     <button class="decrease">-</button>
                     <span class="qty">1</span>
                     <button class="increase">+</button>
                 </td>
-                <td class="total">${item.price}</td>
+                <td class="total">${item.prod_price}</td>
             </tr>
         `);
 
@@ -99,8 +116,8 @@ function addToBill(item) {
             if (qty > 1) {
                 qty--;
                 qtyCell.text(qty);
-                totalCell.text((qty * item.price).toFixed(2));
-                item.quantity++;
+                totalCell.text((qty * item.prod_price).toFixed(2));
+                item.prod_quantity++;
             } else {
                 $(this).closest('tr').remove();
             }
@@ -113,14 +130,14 @@ function addToBill(item) {
             const totalCell = $(this).closest('tr').find('.total');
             let qty = parseInt(qtyCell.text());
 
-            if (qty < item.quantity) {
+            if (qty < item.prod_quantity) {
                 qty++;
                 qtyCell.text(qty);
-                totalCell.text((qty * item.price).toFixed(2));
-                item.quantity--;
+                totalCell.text((qty * item.prod_price).toFixed(2));
+                item.prod_quantity--;
 
-                if (item.quantity === 0) {
-                    const itemCard = $(`.card[data-id="${item.id}"]`);
+                if (item.prod_quantity === 0) {
+                    const itemCard = $(`.card[data-id="${item.productID}"]`);
                     itemCard.css('opacity', 0.5);
                 }
             } else {
@@ -135,10 +152,8 @@ function addToBill(item) {
 
     updateGrandTotal();
     updateInvoiceInfo();
+    
 }
-
-
-
 
 
 function renderItems(items) {
@@ -191,10 +206,10 @@ function updateInvoiceInfo() {
     $('#item-count').text(`${totalItems} Item(s)/${totalQuantity} pcs`);
 }
 
-function updateStockInDatabase(itemId, quantity, action) {
-    $.post('update_stock.php', { itemId, quantity, action }, function (response) {
-        if (response !== 'success') {
-            alert('Failed to update stock.');
+function updateStockInDatabase(productID,prod_quantity, action) {
+    $.post('update_stock.php', { productID, prod_quantity, action }, function (response) {
+        if (response === 'success') {
+            alert('update stock.');
         }
     });
 }
@@ -213,6 +228,21 @@ $('#customer-payment').on('input', function () {
     $('#change').text(change);
 });
 $(document).ready(fetchCategories);
+
+function updateTransaction(productID, prod_quantity) {
+    $.post('transaction.php', { 
+        productID: productID, 
+        prod_quantity: prod_quantity 
+    }, function(response) {
+        // Handle the response from the server
+        if (response === 'success') {
+            alert('Transaction updated successfully!');
+        }
+    }).fail(function() {
+        alert('Error with the request.');
+    });
+}
+
 
 function printReceipt() {
     const billBody = $('#bill-body');
@@ -251,10 +281,8 @@ function printReceipt() {
         // Update stock in the database when printing the receipt
         const itemId = $(this).data('id');
         const itemPrice = parseFloat($(this).find('.total').text()) / qty;
-
-        // Update stock for each item in the receipt
         updateStockInDatabase(itemId, qty, 'decrease');
-
+        updateTransaction(itemId,qty);
         receiptContent += `
             <tr>
                 <td>${name}</td>
@@ -293,10 +321,25 @@ function printReceipt() {
     newWindow.document.close();
     newWindow.print();
     newWindow.close();
+    clearBasket();
+    fetchItems();
 }
 
+function clearBasket() {
+    // Clear the bill table
+    $('#bill-body').empty();
+
+    // Reset the grand total and subtotal
+    $('#grand-total').text('0.00');
+    $('#subtotal').text('0.00');
+
+    // Reset the item count
+    $('#item-count').text('0 Item(s)/0 pcs');
+
+    // Reset the payment input field
+    $('#customer-payment').val('');
+    $('#change').text('0.00');
+}
 
 $('#checkout-button').click(printReceipt);
-$('#all-categories-button').click(function () {
-    fetchItems();
-});
+

@@ -1,18 +1,11 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$database = "pos";
-
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+session_start();
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
-    $sql = "DELETE FROM stock WHERE id = ?";
+    $sql = "DELETE FROM product WHERE productID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
 

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Check if email or username already exists
-    $checkQuery = "SELECT * FROM registration WHERE email = '$email' OR username = '$username'";
+    $checkQuery = "SELECT * FROM user WHERE email = '$email' OR username = '$username'";
     $result = $conn->query($checkQuery);
 
     if ($result->num_rows > 0) {
@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert query to add the user to the database
-        $sql = "INSERT INTO registration (username, email, password, status, code) 
-                VALUES ('$username', '$email', '$hashedPassword', 'verified', 0)";
+        $sql = "INSERT INTO user (username, email, password, status, code) 
+                VALUES ('$username', '$email', '$hashedPassword', true, 0)";
 
         if ($conn->query($sql) === TRUE) {
             header("Location: /LOGIN/login.html");

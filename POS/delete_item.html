@@ -132,9 +132,9 @@
                     listItem.classList.add('stock-item');
                     listItem.innerHTML = `
                         <div class="stock-info">
-                            <span class="category">${item.category}</span> - ${item.name}
+                            <span class="category">${item.categoryName}</span> - ${item.prod_name}
                         </div>
-                        <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+                        <button class="delete-btn" onclick="deleteItem(${item.productID})">Delete</button>
                     `;
                     stockList.appendChild(listItem);
                 });

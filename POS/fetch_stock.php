@@ -1,15 +1,12 @@
 <?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$database = "pos";
+session_start();
+require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Updated SQL query with JOIN to get category name
+$sql = "SELECT product.*, category.categoryName 
+        FROM product 
+        INNER JOIN category ON product.categoryID = category.categoryID";
 
-$sql = "SELECT * FROM stock";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -24,3 +21,4 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+

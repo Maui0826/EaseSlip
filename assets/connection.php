@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "registration";
+$dbname = "easelip";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
