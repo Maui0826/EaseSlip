@@ -7,22 +7,37 @@
     <link rel="stylesheet" href="billing_styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="sidebar-toggle" onclick="toggleSidebar()">&#9776;</div>
-        <nav class="sidebar" id="sidebar">
-          <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
-          <ul>
-              <li><a href="/DashboardMenu/dashboardM.html">Dashboard</a></li>
-              <li><a href="/POS/billing.html">POS</a></li>
-              <li><a href="/INVENTORY/inventory.html">Inventory</a></li>
-          </ul>
-      </nav>
+    <header>
+        <div class="header-left">
+            <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+        </div>
+        <div class="header-center">
+            <input type="text" class="search-bar" placeholder="Search items...">
+        </div>
+        <div class="header-right">
+            <div class="header-placeholder">
+                <img src="/assets/LOGO.png" alt="Logo">
+            </div>
+        </div>
     </header>
+    
+    <nav class="sidebar" id="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+        <ul>
+            <li><a href="/DashboardMenu/dashboardM.html">Dashboard</a></li>
+            <li><a href="/POS/billing.html">POS</a></li>
+            <li><a href="/INVENTORY/inventory.html">Inventory</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
         <div class="section categories">
             <h2>Categories</h2>
             <a href="index.html">
                 <button id="add-category-item-button">Add Category/Item</button>
+            </a>
+            <a href="delete_item.html">
+                <button id="add-category-item-button">Delete Category/Item</button>
             </a>
             <button id="all-categories-button">All Categories</button>
         </div>
@@ -30,28 +45,34 @@
             <h2>Items</h2>
         </div>
         <div class="section bill">
-            <h2>Bill</h2>
+            <h2>Basket</h2>
+            <div id="grand-total-view">
+                <span id="sub-total-label"><strong>Sub Total:</strong></span>
+                <span id="grand-total-container">
+                    <span id="grand-total">0</span>
+                    <span id="grand-total-dec"></span>
+                    <span> PHP</span>
+                </span>
+            </div>
+            <div id="amount-paid">
+                <label for="customer-payment">Paid Amount:</label>
+                <input type="number" id="customer-payment" placeholder="₱">
+            </div>
+            <button id="pay-button" onclick="printReceipt()">Confirm Payment</button>
+            <div id="invoice-info">
+                <p><strong>Invoice:</strong> <span id="item-count"># Items/# pcs</span></p>
+            </div>
             <table>
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Price</th>
+                        <th>Name</th>
                         <th>Qty</th>
                         <th>Total</th>
-                                           
                     </tr>
                 </thead>
                 <tbody id="bill-body"></tbody>
             </table>
-            <div id="bill-summary">
-                <p>Total: <span id="grand-total">0.00</span> PHP</p>
-                <label for="customer-payment">Paid Amount:</label>
-                <input type="number" id="customer-payment" style="width: 100%; margin: 5px 0; padding: 5px;">
-                <p>Change: <span id="change">0.00</span> PHP</p>
-            </div>
-            <button id="checkout-button">
-                Checkout
-            </button>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

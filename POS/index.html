@@ -6,13 +6,14 @@
     <title>Insert Stock</title>
     <style>
         :root {
-            --text: #050506;
-            --background: #ffffff;
-            --primary: #ff93ac;
-            --secondary: #f9d4d4;
-            --accent: #6262d1;
-            --button: #ff5f5f;
+        --text: #042A2B;
+        --background: #EAF7F5;
+        --primary: #98DBC6;
+        --secondary: #5BC8AC;
+        --accent: #053F5E;
+        --button: #379683;
         }
+
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -23,6 +24,7 @@
             height: 100vh;
             background-color: var(--secondary);
         }
+
         .form-container {
             background: var(--background);
             padding: 30px;
@@ -31,12 +33,14 @@
             width: 100%;
             max-width: 400px;
         }
+
         .form-container h2 {
             margin-bottom: 20px;
             font-size: 1.6em;
             color: var(--text);
             text-align: center;
         }
+
         .form-container input, .form-container button {
             width: 100%;
             padding: 12px;
@@ -46,14 +50,17 @@
             font-size: 0.9em;
             box-sizing: border-box;
         }
+
         .form-container input:focus, .form-container button:focus {
             outline: none;
             border-color: var(--accent);
         }
+
         .form-container input {
             background-color: var(--primary);
             color: var(--text);
         }
+
         .form-container button {
             background: var(--button);
             color: var(--background);
@@ -62,9 +69,11 @@
             font-weight: bold;
             transition: background-color 0.3s;
         }
+
         .form-container button:hover {
-            background: darken(var(--button), 10%);
+            background: #4ca64c; /* Darker green on hover */
         }
+
         .form-container .back-button {
             background: #ddd;
             color: var(--text);
@@ -72,6 +81,7 @@
             font-weight: normal;
             transition: background-color 0.3s;
         }
+
         .form-container .back-button:hover {
             background: var(--accent);
             color: var(--background);
