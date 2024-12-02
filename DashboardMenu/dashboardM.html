@@ -20,7 +20,7 @@
           <i class="fas fa-warehouse"></i>
           <span><a href="/INVENTORY/inventory.html">Inventory</a></span>
         </li>
-        <li id="inventory-tab">
+        <li id="pos-tab">
           <i class="fa-solid fa-tv"></i>
           <span><a href="/POS/billing.html">POS</a></span>
         </li>
@@ -55,47 +55,61 @@
       </ul>
     </nav>
 
-    
-      
     <!-- Main Content -->
     <main class="main-content">
-        <header class="header">
-            <div class="header-container">
-              <!-- Name and Menu Tab -->
-              <div class="header-left">
-                <span class="header-name">Dashboard</span>
-                <button class="menu-btn">
-                  <i class="fas fa-bars"></i>
-                </button>
-              </div>
-          
-              <!-- Search Tab -->
-              <div class="header-search">
-                <input type="text" placeholder="Search..." />
-                <button class="search-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-          
-              <!-- Icon Tabs and Profile -->
-              <div class="header-right">
-                <div class="icon-tabs">
-                  <i class="fas fa-bell"></i>
-                  <i class="fas fa-envelope"></i>
-                  <i class="fas fa-cog"></i>
-                </div>
-                <div class="profile-tab">
-                  <img src="https://via.placeholder.com/40" alt="Profile Image" />
-                </div>
-              </div>
+      <header class="header">
+        <div class="header-container">
+          <div class="header-left">
+            <span class="header-name">Dashboard</span>
+            <button class="menu-btn">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <div class="header-search">
+            <input type="text" placeholder="Search..." />
+            <button class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="header-right">
+            <div class="icon-tabs">
+              <i class="fas fa-bell"></i>
+              <i class="fas fa-envelope"></i>
+              <i class="fas fa-cog"></i>
             </div>
-          </header>
+            <div class="profile-tab">
+              <img src="https://via.placeholder.com/40" alt="Profile Image" />
+            </div>
+          </div>
+        </div>
+      </header>
       <div class="main-section" id="main-section">
-        <p>Select a category from the navigation bar.</p>
+        <div class="overview" id="overview">
+          <div class="card" id="total-revenue">
+            <i class="fas fa-sack-dollar"></i>
+            <h3>Total Revenue</h3>
+            <p id="revenue-data">Loading...</p>
+          </div>
+          <div class="card" id="net-profit">
+            <i class="fas fa-chart-line"></i>
+            <h3>Net Profit</h3>
+            <p id="profit-data">Loading...</p>
+          </div>
+          <div class="card" id="time-sold">
+            <i class="fas fa-clock"></i>
+            <h3>Time Sold</h3>
+            <p id="time-data">Loading...</p>
+          </div>
+          <div class="card" id="growth">
+            <i class="fas fa-arrow-up"></i>
+            <h3>Growth</h3>
+            <p id="growth-data">Loading...</p>
+          </div>
+        </div>
       </div>
     </main>
   </div>
-
   <script src="dashboardM.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

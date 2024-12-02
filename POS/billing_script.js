@@ -64,7 +64,6 @@ function fetchItems(category = null) {
     });
 }
 
-
 function addToBill(item) {
     if (item.prod_quantity <= 0) {
         alert('This item is out of stock.');
@@ -77,25 +76,18 @@ function addToBill(item) {
     if (existingRow.length > 0) {
         const qtyCell = existingRow.find('.qty');
         const totalCell = existingRow.find('.total');
-        const newQty = parseInt(qtyCell.text()) + 1;
+        const currentQty = parseInt(qtyCell.text());
+        const newQty = currentQty + 1;
 
         if (newQty > item.prod_quantity) {
             alert('Insufficient stock!');
             return;
         }
+
         qtyCell.text(newQty);
         totalCell.text((newQty * item.prod_price).toFixed(2));
-
-        item.prod_quantity--;
-        if (item.prod_quantity === 0) {
-            const itemCard = $(`.card[data-id="${item.productID}"]`);
-            itemCard.css('opacity', 0.5);
-        }
-
-        updateGrandTotal();
-        updateInvoiceInfo();
     } else {
-        const row = $(`
+        const row = $(` 
             <tr data-id="${item.productID}">
                 <td><img src="${item.image_path}" alt="${item.prod_name}"></td>
                 <td>${item.prod_name}</td>
@@ -117,7 +109,6 @@ function addToBill(item) {
                 qty--;
                 qtyCell.text(qty);
                 totalCell.text((qty * item.prod_price).toFixed(2));
-                item.prod_quantity++;
             } else {
                 $(this).closest('tr').remove();
             }
@@ -134,12 +125,6 @@ function addToBill(item) {
                 qty++;
                 qtyCell.text(qty);
                 totalCell.text((qty * item.prod_price).toFixed(2));
-                item.prod_quantity--;
-
-                if (item.prod_quantity === 0) {
-                    const itemCard = $(`.card[data-id="${item.productID}"]`);
-                    itemCard.css('opacity', 0.5);
-                }
             } else {
                 alert('Insufficient stock!');
             }
@@ -152,8 +137,8 @@ function addToBill(item) {
 
     updateGrandTotal();
     updateInvoiceInfo();
-    
 }
+
 
 
 function renderItems(items) {
@@ -161,11 +146,11 @@ function renderItems(items) {
     container.empty();
     items.forEach(item => {
         const card = $(`
-            <div class="card" data-name="${item.name.toLowerCase()}">
-                <img src="${item.image_path}" alt="${item.name}">
-                <h4>${item.name}</h4>
-                <p>Price: ${item.price} PHP</p>
-                <p>Stock: ${item.quantity}</p>
+            <div class="card" data-name="${item.prod_name.toLowerCase()}">
+                <img src="${item.image_path}" alt="${item.prod_name}">
+                <h4>${item.prod_name}</h4>
+                <p>Price: ${item.prod_price} PHP</p>
+                <p>Stock: ${item.prod_quantity}</p>
             </div>
         `);
         container.append(card);

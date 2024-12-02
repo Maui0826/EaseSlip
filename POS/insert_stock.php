@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/EaseSlip/assets/connection.php";
 
 // Retrieve form data
 $category = $conn->real_escape_string($_POST['category']);

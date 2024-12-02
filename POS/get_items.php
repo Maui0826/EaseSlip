@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/EaseSlip/assets/connection.php";
 
 // Check if 'category' is provided in the request
 $category = isset($_GET['category']) ? $conn->real_escape_string($_GET['category']) : null;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/EaseSlip/assets/connection.php";
 
 // Updated SQL query with JOIN to get category name
 $sql = "SELECT product.*, category.categoryName 

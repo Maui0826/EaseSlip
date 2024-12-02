@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/EaseSlip/assets/connection.php";
 
 $itemId = $_POST['productID'];
 $quantity = intval($_POST['prod_quantity']);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '/xampp/htdocs/Ease_Slip/assets/connection.php';  // Adjust the path as necessary
+require '/xampp/htdocs/EaseSlip/assets/connection.php';  // Adjust the path as necessary
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newPassword = $_POST['newPassword'];

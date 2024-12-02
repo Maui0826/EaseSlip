@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/EaseSlip/assets/connection.php";
 
 // Check if POST data exists
 if (isset($_POST['productID']) && isset($_POST['prod_quantity'])) {
