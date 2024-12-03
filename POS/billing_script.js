@@ -263,11 +263,6 @@ function printReceipt() {
         const total = parseFloat($(this).find('.total').text());
         grandTotal += total;
 
-        // Update stock in the database when printing the receipt
-        const itemId = $(this).data('id');
-        const itemPrice = parseFloat($(this).find('.total').text()) / qty;
-        updateStockInDatabase(itemId, qty, 'decrease');
-        updateTransaction(itemId,qty);
         receiptContent += `
             <tr>
                 <td>${name}</td>
@@ -278,6 +273,13 @@ function printReceipt() {
     });
 
     const paidAmount = parseFloat($('#customer-payment').val()) || 0;
+    
+    // Check if the paid amount is equal or greater than the grand total
+    if (paidAmount < grandTotal) {
+        alert('Payment is less than the grand total. Please provide the correct amount.');
+        return;  // Stop the function if payment is insufficient
+    }
+
     const change = paidAmount >= grandTotal ? (paidAmount - grandTotal).toFixed(2) : 0.00;
 
     receiptContent += `
@@ -306,6 +308,15 @@ function printReceipt() {
     newWindow.document.close();
     newWindow.print();
     newWindow.close();
+    
+    // Now update stock and transaction only if the payment is valid
+    rows.each(function () {
+        const itemId = $(this).data('id');
+        const qty = parseInt($(this).find('.qty').text());
+        updateStockInDatabase(itemId, qty, 'decrease');
+        updateTransaction(itemId, qty);
+    });
+
     clearBasket();
     fetchItems();
 }

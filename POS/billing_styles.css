@@ -36,6 +36,13 @@
     z-index: 999;
 }
 
+.pos-text {
+    padding-left: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text, #fff);  /* Adjust color to match your theme */
+  }
+
 .header-left, .header-center, .header-right {
     display: flex;
     align-items: center;
