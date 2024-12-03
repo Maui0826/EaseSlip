@@ -14,11 +14,11 @@ function closeSidebar() {
 function fetchCategories() {
   $.get('/POS/get_categories.php', function (data) {
       const response = JSON.parse(data);
-      const username = response.username;  // Get the username from the response
-      const categories = response.categories;  // Get the categories from the response
+      const username = response.username;  
+      const categories = response.categories;  
 
-      // Update the username in the h1 element
-      $('#username').text(username ? `Welcome, ${username}` : 'Welcome, Guest');  // Display username
+      
+      $('#username').text(username ? `Welcome, ${username}` : 'Welcome, Guest');  
 
       const categoriesDiv = $('.categories');
       categories.forEach(category => {
@@ -27,7 +27,7 @@ function fetchCategories() {
           categoriesDiv.append(button);
       });
 
-      // Optionally, fetch items for the first category (if needed)
+      
       fetchItems();
   });
 }
@@ -39,7 +39,7 @@ function fetchItems(category = null) {
       const itemsDiv = $('.items').empty();
 
       items.forEach(item => {
-          console.log("Image Path:", `/POS/${item.image_path}`); // Debugging image path
+          console.log("Image Path:", `/POS/${item.image_path}`); 
 
           const card = $(` 
               <div class="card" data-id="${item.id}">
@@ -58,32 +58,32 @@ function fetchItems(category = null) {
 
 
 $('#update-item-button').click(function () {
-    const productID = $('#item-details-container').data('item-id');  // Get the productID
+    const productID = $('#item-details-container').data('item-id');  
     const price = $('#item-price').val();
     const stock = $('#item-stock').val();
 
-    // Ensure stock is filled out, and price is optional
+    
     if (!stock) {
         alert('Please ensure that the stock quantity is filled out.');
         return;
     }
 
-    // Prepare the data to send to the backend
+    
     const data = {
-      productID,   // Include productID in the data
-      stock        // Stock is mandatory
+      productID,   
+      stock        
     };
     
-    // Include price only if it's not empty
+    
     if (price) {
         data.price = price;
     }
 
-    console.log('Data sent:', data);  // Debugging: log data being sent
+    console.log('Data sent:', data);  
 
     $.post('update_stock.php', data, function (response) {
         alert(response);
-        fetchItems(); // Refresh items after update
+        fetchItems(); 
     }).fail(function () {
         alert('Failed to update the item.');
     });
@@ -96,7 +96,7 @@ function showItemDetails(item) {
   $('#item-details-container').data('item-id', item.productID);
   $('#item-image').attr('src', `/POS/${item.image_path}`);
   $('#item-category').text(item.categoryName);
-  $('#item-name').text(item.prod_name); // Set name text
+  $('#item-name').text(item.prod_name); 
   $('#item-price').val(item.prod_price);
   $('#item-stock').val(item.prod_quantity);
 }
@@ -108,13 +108,13 @@ function updateItem(itemId) {
         name: $('#item-name').val(),
         price: parseFloat($('#item-price').val()),
         stock: parseInt($('#item-stock').val(), 10),
-        itemId: itemId  // Make sure to include itemId here
+        itemId: itemId  
     };
   
     $.post('update_item.php', updatedData, function (response) {
-       const responseData = JSON.parse(response);  // Parse the JSON response
-       alert(responseData.message);  // Show the message from the response
-       fetchItems(); // Refresh the items list
+       const responseData = JSON.parse(response);  
+       alert(responseData.message);  
+       fetchItems(); 
     }).fail(function () {
         alert('Failed to update the item.');
     });
@@ -199,7 +199,7 @@ function updateTransaction(productID, prod_quantity) {
       productID: productID, 
       prod_quantity: prod_quantity 
   }, function(response) {
-      // Handle the response from the server
+      
       if (response === 'success') {
           alert('Transaction updated successfully!');
       }
@@ -243,7 +243,7 @@ function printReceipt() {
       const total = parseFloat($(this).find('.total').text());
       grandTotal += total;
 
-      // Update stock in the database when printing the receipt
+      
       const itemId = $(this).data('id');
       const itemPrice = parseFloat($(this).find('.total').text()) / qty;
       updateStockInDatabase(itemId, qty, 'decrease');
@@ -291,17 +291,17 @@ function printReceipt() {
 }
 
 function clearBasket() {
-  // Clear the bill table
+  
   $('#bill-body').empty();
 
-  // Reset the grand total and subtotal
+  
   $('#grand-total').text('0.00');
   $('#subtotal').text('0.00');
 
-  // Reset the item count
+  
   $('#item-count').text('0 Item(s)/0 pcs');
 
-  // Reset the payment input field
+  
   $('#customer-payment').val('');
   $('#change').text('0.00');
 }

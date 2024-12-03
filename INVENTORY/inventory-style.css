@@ -40,7 +40,7 @@ header {
   padding-left: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--text, #fff);  /* Adjust color to match your theme */
+  color: var(--text, #fff); 
 }
 
 .header-left, .header-center, .header-right {
@@ -48,7 +48,7 @@ header {
   align-items: center;
 }
 
-/* Styling for the username h1 element */
+
 #username {
   font-size: 24px;
   color: #333;
@@ -198,29 +198,29 @@ h2 {
 }
 
 
-/* Section title styling */
+
 .section-title {
-  text-align: center;  /* Center the title */
-  font-size: 2rem;  /* Larger font size for emphasis */
-  font-weight: bold;  /* Bold text */
-  color: var(--primary);  /* Primary color for emphasis */
-  margin-top: 20px;  /* Space above the title */
-  margin-bottom: 20px;  /* Space below the title */
-  padding-top: 10px;  /* Padding from the top */
+  text-align: center; 
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: var(--primary); 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  padding-top: 10px; 
 }
 
-/* Adjust the items section */
+
 .items {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: flex-start;
   padding-top: 20px;
-  padding-bottom: 30px;  /* Add space below the items */
+  padding-bottom: 30px; 
   flex: 1;
 }
 
-/* Card styling */
+
 .card {
   margin-top: 30px;
   width: 30%;
@@ -441,10 +441,10 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
-  display: flex;                  /* Use flexbox */
-  flex-direction: column;         /* Align items vertically */
-  align-items: center;            /* Center items horizontally */
-  justify-content: center;        /* Center items vertically */
+  display: flex;                 
+  flex-direction: column;        
+  align-items: center;           
+  justify-content: center;       
   text-align: center;       
 }
 
@@ -453,12 +453,12 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; /* Increased gap for better spacing */
+  gap: 15px;
 }
 
 #item-image[alt="Item Image"]:empty {
-  background-color: #fff;  /* White background when image source is empty */
-  border: 1px solid #ddd;  /* Optional border to define placeholder */
+  background-color: #fff; 
+  border: 1px solid #ddd; 
 }
 
 #item-details-container img {
@@ -472,39 +472,39 @@ h2 {
 #item-details-container label {
   font-size: 1rem;
   font-weight: bold;
-  color: var(--text-dark); /* Assuming a dark text color variable */
+  color: var(--text-dark);
 }
 
 #item-details-container span, 
 #item-details-container input {
   font-size: 1.2rem;
-  color: var(--text-light); /* Light text color for the values */
+  color: var(--text-light);
 }
 
 #item-category,
 #item-name {
   display: block;
-  font-size: 1.4rem;  /* Embiggen category and name */
-  font-weight: bold;  /* Bold font weight */
-  color: var(--primary);  /* Use a primary color for emphasis */
+  font-size: 1.4rem; 
+  font-weight: bold; 
+  color: var(--primary); 
   margin-top: 5px;
 }
 
 #item-details-container input {
   width: 100%;
-  max-width: 300px; /* Limit max width for inputs */
+  max-width: 300px;
   padding: 12px;
   font-size: 1.1rem;
   border: 1px solid #ccc;
-  border-radius: 25px; /* Make the inputs more rounded */
+  border-radius: 25px;
   background-color: #f9f9f9;
-  box-sizing: border-box; /* Ensure padding is included in width */
-  transition: border-color 0.3s ease; /* Smooth border transition */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
 #item-details-container input:focus {
   outline: none;
-  border-color: var(--accent); /* Accent color on focus */
+  border-color: var(--accent);
 }
 
 #update-item-button {
@@ -513,9 +513,9 @@ h2 {
   color: var(--background);
   font-weight: bold;
   border: none;
-  border-radius: 25px; /* Make the button rounded */
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth background color change */
+  transition: background-color 0.3s ease;
 }
 
 #update-item-button:hover {
@@ -523,17 +523,17 @@ h2 {
 }
 
 #update-item-button:active {
-  background-color: var(--accent-dark); /* Darker shade when the button is pressed */
+  background-color: var(--accent-dark);
 }
 
 #item-details-container div {
-  width: 100%; /* Ensure divs take full width */
-  text-align: left; /* Align the text to the left */
+  width: 100%;
+  text-align: left;
 }
 
 #item-details-container div label {
   display: inline-block;
-  width: 25%; /* Label width */
+  width: 25%;
   font-weight: bold;
-  color: var(--text-dark); /* Adjust for a nice contrast */
+  color: var(--text-dark);
 }
