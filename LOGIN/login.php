@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Incorrect password. Please try again.";
         }
     } else {
-        echo "No account found with the provided Company ID.";
+        echo "No account found with the provided user.";
     }
 
     $stmt->close();
