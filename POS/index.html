@@ -98,13 +98,15 @@
             <input type="number" name="quantity" id="quantity" placeholder="Quantity" required> 
             <input type="file" name="image" id="image" accept="image/*" required>
             <button type="button" onclick="submitForm()">Submit</button>
-            <button type="button" class="back-button" onclick="window.location.href='billing.html'">Go Back</button>
+            <button type="button" class="back-button" onclick="window.location.href='/INVENTORY/inventory.html'">Go Back</button>
         </form>        
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function submitForm() {
-            const formData = new FormData(document.getElementById('stockForm'));
+            const form = document.getElementById('stockForm');
+            const formData = new FormData(form);
+
             $.ajax({
                 url: 'insert_stock.php',
                 type: 'POST',
@@ -113,12 +115,14 @@
                 contentType: false,
                 success: function (response) {
                     alert(response);
+                    form.reset(); // Clears all form inputs
                 },
                 error: function () {
                     alert('An error occurred while submitting the form.');
                 }
             });
         }
+
     </script>
 </body>
 </html>

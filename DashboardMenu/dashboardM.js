@@ -30,3 +30,24 @@ tabs.forEach(tab => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  fetchOverviewData();
+});
+
+function fetchOverviewData() {
+  $.ajax({
+    url: 'fetch_overview.php',
+    method: 'GET',
+    dataType: 'json',
+    success: (data) => {
+      $('#revenue-data').text(data.revenue);
+      $('#profit-data').text(data.profit);
+      $('#time-data').text(data.time_sold);
+      $('#growth-data').text(data.growth);
+    },
+    error: () => {
+      alert('Failed to fetch data');
+    },
+  });
+}

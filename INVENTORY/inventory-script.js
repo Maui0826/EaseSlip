@@ -11,137 +11,300 @@ function closeSidebar() {
   document.getElementById("sidebar").style.width = "0";
 }
 
-function addNewField() {
-  var container = document.getElementById("extra-fields-container");
+function fetchCategories() {
+  $.get('/POS/get_categories.php', function (data) {
+      const response = JSON.parse(data);
+      const username = response.username;  
+      const categories = response.categories;  
 
-  // Create a new label and input element for the new field
-  var newLabel = document.createElement("label");
-  newLabel.innerHTML = "Additional Info: ";
+      
+      $('#username').text(username ? `Welcome, ${username}` : 'Welcome, Guest');  
 
-  var newInput = document.createElement("input");
-  newInput.type = "text";
-  newInput.className = "extra-field";
-  newInput.placeholder = "Enter data";
+      const categoriesDiv = $('.categories');
+      categories.forEach(category => {
+          const button = $(`<button>${category}</button>`);
+          button.click(() => fetchItems(category));
+          categoriesDiv.append(button);
+      });
 
-  // Append the new label and input to the container
-  container.appendChild(newLabel);
-  container.appendChild(newInput);
-
-  // Add a line break for better layout
-  container.appendChild(document.createElement("br"));
-
-  // Update the table headers
-  var tableHeaders = document.getElementById("table-headers");
-  var newHeader = document.createElement("th");
-  newHeader.innerHTML = "Additional Info";
-  tableHeaders.appendChild(newHeader);
+      
+      fetchItems();
+  });
 }
 
-function addPurchase() {
-  // Collect form values
-  const date = document.purchases.date.value;
-  const product = document.purchases.product.value;
-  const quantity = document.purchases.quantity.value;
-  const unitCost = document.purchases.unitCost.value;
-  const totalCost = document.purchases.totalCost.value;
 
-  // Collect dynamically added field values
-  const extraFields = document.querySelectorAll(".extra-field");
-  let extraFieldValues = Array.from(extraFields).map(
-    (field) => field.value
-  );
+function fetchItems(category = null) {
+  $.get('/POS/get_items.php', { category }, function (data) {
+      const items = JSON.parse(data);
+      const itemsDiv = $('.items').empty();
 
-  // Create a new table row
-  const tr = document.createElement("tr");
+      items.forEach(item => {
+          console.log("Image Path:", `/POS/${item.image_path}`); 
 
-  // Add cells for standard fields
-  const td1 = tr.appendChild(document.createElement("td"));
-  const td2 = tr.appendChild(document.createElement("td"));
-  const td3 = tr.appendChild(document.createElement("td"));
-  const td4 = tr.appendChild(document.createElement("td"));
-  const td5 = tr.appendChild(document.createElement("td"));
+          const card = $(` 
+              <div class="card" data-id="${item.id}">
+                  <img src="/POS/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/images/fallback.jpg';">
+                  <h4>${item.prod_name}</h4>
+                  <p>Price: ${item.prod_price} PHP</p>
+                  <p>Stock: ${item.prod_quantity}</p>
+              </div>
+          `);
 
-  td1.innerHTML = date;
-  td2.innerHTML = product;
-  td3.innerHTML = quantity;
-  td4.innerHTML = unitCost;
-  td5.innerHTML = totalCost;
+          card.click(() => showItemDetails(item));
+          itemsDiv.append(card);
+      });
+  });
+}
 
-  // Add cells for extra fields
-  extraFieldValues.forEach((value) => {
-    const extraTd = tr.appendChild(document.createElement("td"));
-    extraTd.innerHTML = value;
+
+$('#update-item-button').click(function () {
+    const productID = $('#item-details-container').data('item-id');  
+    const price = $('#item-price').val();
+    const stock = $('#item-stock').val();
+
+    
+    if (!stock) {
+        alert('Please ensure that the stock quantity is filled out.');
+        return;
+    }
+
+    
+    const data = {
+      productID,   
+      stock        
+    };
+    
+    
+    if (price) {
+        data.price = price;
+    }
+
+    console.log('Data sent:', data);  
+
+    $.post('update_stock.php', data, function (response) {
+        alert(response);
+        fetchItems(); 
+    }).fail(function () {
+        alert('Failed to update the item.');
+    });
+});
+
+
+
+
+function showItemDetails(item) {
+  $('#item-details-container').data('item-id', item.productID);
+  $('#item-image').attr('src', `/POS/${item.image_path}`);
+  $('#item-category').text(item.categoryName);
+  $('#item-name').text(item.prod_name); 
+  $('#item-price').val(item.prod_price);
+  $('#item-stock').val(item.prod_quantity);
+}
+
+
+
+function updateItem(itemId) {
+    const updatedData = {
+        name: $('#item-name').val(),
+        price: parseFloat($('#item-price').val()),
+        stock: parseInt($('#item-stock').val(), 10),
+        itemId: itemId  
+    };
+  
+    $.post('update_item.php', updatedData, function (response) {
+       const responseData = JSON.parse(response);  
+       alert(responseData.message);  
+       fetchItems(); 
+    }).fail(function () {
+        alert('Failed to update the item.');
+    });
+  }
+  
+
+function renderItems(items) {
+  const container = $('#items-container');
+  container.empty();
+  items.forEach(item => {
+      const card = $(`
+          <div class="card" data-name="${item.prod_name.toLowerCase()}">
+              <img src="/POS/${item.image_path}" alt="${item.prod_name}">
+              <h4>${item.prod_name}</h4>
+              <p>Price: ${item.prod_price} PHP</p>
+              <p>Stock: ${item.prod_quantity}</p>
+          </div>
+      `);
+      container.append(card);
+  });
+}
+
+$(document).ready(function () {
+  renderItems(items); 
+
+  $('.search-bar').on('input', function () {
+      const searchTerm = $(this).val().toLowerCase();
+      $('.items .card').each(function () {
+          const itemName = $(this).data('name');
+          if (itemName.includes(searchTerm)) {
+              $(this).show();
+          } else {
+              $(this).hide();
+          }
+      });
+  });
+});
+
+function updateGrandTotal() {
+  let total = 0;
+  $('#bill-body .total').each(function () {
+      total += parseFloat($(this).text());
+  });
+  $('#subtotal').text(total.toFixed(2));
+  updateInvoiceInfo();
+}
+
+function updateInvoiceInfo() {
+  const totalItems = $('#bill-body tr').length;
+  let totalQuantity = 0;
+  $('#bill-body .qty').each(function () {
+      totalQuantity += parseInt($(this).text());
+  });
+  $('#item-count').text(`${totalItems} Item(s)/${totalQuantity} pcs`);
+}
+
+function updateStockInDatabase(productID,prod_quantity, action) {
+  $.post('/POS/update_stock.php', { productID, prod_quantity, action }, function (response) {
+      if (response === 'success') {
+          alert('update stock.');
+      }
+  });
+}
+function updateGrandTotal() {
+  let grandTotal = 0;
+  $('#bill-body tr').each(function () {
+      const total = parseFloat($(this).find('.total').text());
+      grandTotal += total;
+  });
+  $('#grand-total').text(grandTotal.toFixed(2));
+}
+$('#customer-payment').on('input', function () {
+  const paidAmount = parseFloat($(this).val());
+  const grandTotal = parseFloat($('#grand-total').text());
+  const change = paidAmount >= grandTotal ? (paidAmount - grandTotal).toFixed(2) : 0.00;
+  $('#change').text(change);
+});
+$(document).ready(fetchCategories);
+
+function updateTransaction(productID, prod_quantity) {
+  $.post('/POS/transaction.php', { 
+      productID: productID, 
+      prod_quantity: prod_quantity 
+  }, function(response) {
+      
+      if (response === 'success') {
+          alert('Transaction updated successfully!');
+      }
+  }).fail(function() {
+      alert('Error with the request.');
+  });
+}
+
+
+function printReceipt() {
+  const billBody = $('#bill-body');
+  const rows = billBody.find('tr');
+  if (rows.length === 0) {
+      alert('No items in the bill.');
+      return;
+  }
+
+  let grandTotal = 0;
+  let receiptContent = `
+      <div style="font-family: monospace; padding: 20px; width: 300px;">
+          <h2 style="text-align: center; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+              EASELIP
+          </h2>
+          <p style="text-align: center; font-size: 14px; margin-bottom: 20px;">Easlip inc. Philippines</p>
+          <p style="text-align: center; font-size: 14px; margin-bottom: 20px;">Tel: (123) 456-7890</p>
+          <div style="border-bottom: 1px solid #000; margin-bottom: 10px;"></div>
+          <table style="width: 100%; font-size: 14px; margin-bottom: 20px; border-collapse: collapse;">
+              <thead>
+                  <tr style="border-bottom: 1px solid #000;">
+                      <th style="text-align: left;">Item</th>
+                      <th style="text-align: center;">Qty</th>
+                      <th style="text-align: right;">Total</th>
+                  </tr>
+              </thead>
+              <tbody>
+  `;
+
+  rows.each(function () {
+      const name = $(this).find('td:nth-child(2)').text(); 
+      const qty = parseInt($(this).find('.qty').text());
+      const total = parseFloat($(this).find('.total').text());
+      grandTotal += total;
+
+      
+      const itemId = $(this).data('id');
+      const itemPrice = parseFloat($(this).find('.total').text()) / qty;
+      updateStockInDatabase(itemId, qty, 'decrease');
+      updateTransaction(itemId,qty);
+      receiptContent += `
+          <tr>
+              <td>${name}</td>
+              <td style="text-align: center;">${qty}</td>
+              <td style="text-align: right;">${total.toFixed(2)} PHP</td>
+          </tr>
+      `;
   });
 
-  // Append the new row to the table
-  document.getElementById("tbl").appendChild(tr);
+  const paidAmount = parseFloat($('#customer-payment').val()) || 0;
+  const change = paidAmount >= grandTotal ? (paidAmount - grandTotal).toFixed(2) : 0.00;
+
+  receiptContent += `
+              </tbody>
+          </table>
+          <div style="border-bottom: 1px solid #000; margin-bottom: 10px;"></div>
+          <p style="text-align: right; font-size: 14px;">
+              <strong>Grand Total:</strong>
+              <span style="font-size: 16px; font-weight: bold;">${grandTotal.toFixed(2)} PHP</span>
+          </p>
+          <p style="text-align: right; font-size: 14px;">
+              <strong>Amount Paid:</strong>
+              <span style="font-size: 16px; font-weight: bold;">${paidAmount.toFixed(2)} PHP</span>
+          </p>
+          <p style="text-align: right; font-size: 14px;">
+              <strong>Change:</strong>
+              <span style="font-size: 16px; font-weight: bold;">${change} PHP</span>
+          </p>
+          <div style="border-bottom: 1px solid #000; margin-bottom: 10px;"></div>
+          <p style="text-align: center; margin-top: 20px;">Thank you for shopping with us!</p>
+      </div>
+  `;
+
+  const newWindow = window.open('', '_blank', 'width=400,height=600');
+  newWindow.document.write(receiptContent);
+  newWindow.document.close();
+  newWindow.print();
+  newWindow.close();
+  clearBasket();
+  fetchItems();
 }
-function addSales() {
-  // Collect form values
-  const date = document.sales.date.value;
-  const expense = document.sales.expense.value;
-  const sales = document.sales.sales.value;
-  const amount = document.sales.amount.value;
 
-  // Collect dynamically added field values
-  const extraFields = document.querySelectorAll(".extra-field");
-  let extraFieldValues = Array.from(extraFields).map(
-    (field) => field.value
-  );
+function clearBasket() {
+  
+  $('#bill-body').empty();
 
-  // Create a new table row
-  const tr = document.createElement("tr");
+  
+  $('#grand-total').text('0.00');
+  $('#subtotal').text('0.00');
 
-  // Add cells for standard fields
-  const td1 = tr.appendChild(document.createElement("td"));
-  const td2 = tr.appendChild(document.createElement("td"));
-  const td3 = tr.appendChild(document.createElement("td"));
-  const td4 = tr.appendChild(document.createElement("td"));
+  
+  $('#item-count').text('0 Item(s)/0 pcs');
 
-  td1.innerHTML = date;
-  td2.innerHTML = expense;
-  td3.innerHTML = sales;
-  td4.innerHTML = amount;
-
-  // Add cells for extra fields
-  extraFieldValues.forEach((value) => {
-    const extraTd = tr.appendChild(document.createElement("td"));
-    extraTd.innerHTML = value;
-  });
-
-  // Append the new row to the table
-  document.getElementById("tbl2").appendChild(tr);
+  
+  $('#customer-payment').val('');
+  $('#change').text('0.00');
 }
-function addStocks() {
-  // Collect form values
-  const product = document.stocks.product.value;
-  const quantity = document.stocks.quantity.value;
-  const unitPrice = document.stocks.unitPrice.value;
 
-  // Collect dynamically added field values
-  const extraFields = document.querySelectorAll(".extra-field");
-  let extraFieldValues = Array.from(extraFields).map(
-    (field) => field.value
-  );
+$('#checkout-button').click(printReceipt);
 
-  // Create a new table row
-  const tr = document.createElement("tr");
-
-  // Add cells for standard fields
-  const td1 = tr.appendChild(document.createElement("td"));
-  const td2 = tr.appendChild(document.createElement("td"));
-  const td3 = tr.appendChild(document.createElement("td"));
-
-  td1.innerHTML = product;
-  td2.innerHTML = quantity;
-  td3.innerHTML = unitPrice;
-
-  // Add cells for extra fields
-  extraFieldValues.forEach((value) => {
-    const extraTd = tr.appendChild(document.createElement("td"));
-    extraTd.innerHTML = value;
-  });
-
-  // Append the new row to the table
-  document.getElementById("tbl3").appendChild(tr);
-}

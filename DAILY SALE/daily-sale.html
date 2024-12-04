@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Sales Dashboard</title>
     <link rel="stylesheet" href="daily-sale-style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    <h1>DAILY SALE DASHBOARD</h1>
     <div class="daily-container">
-      <h1>Daily SALE DASHBOARD</h1>
       <div class="daily-calendar">
-        <p>Date: <input type="date" id=""></p>
-        </select>
+        <p>Date: <input type="date" id="dateInput"></p>
       </div>
       <div class="daily-chart">
-        <canvas id="salesChart"> </canvas>
-        <h1>Chart</h1>
+        <canvas id="salesChart"></canvas>
       </div>
       <div class="dailySaleTotal">
         <h3 id="totalDailySale">Total Day Sale:</h3>
       </div>
     </div>
-    <script src="weeklySale.js"></script>
+    <script src="daily-sale.js"></script>
   </body>
 </html>
+
