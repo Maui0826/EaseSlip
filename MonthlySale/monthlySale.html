@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monthly Sales Dashboard </title>
     <link rel="stylesheet" href="monthlySale.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
+    <h1>
+        Monthly SALE DASHBOARD
+    </h1>
     <div class="MonthlySale-container">
-        <h1>
-            Monthly SALE DASHBOARD
-        </h1>
         <div class="monthly-calendar">
             <label for="month-select">Month:</label>
             <select id="month-select">
@@ -32,10 +34,9 @@
             <canvas id="salesChart">
 
             </canvas>
-            <h1>Chart</h1>
         </div>
         <div class="monthlySaleTotal">
-            <h3 id="totalmonthlySale">Total Weekly Sale:</h3>
+            <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
         </div>
     </div>
     <script src="monthlySale.js"></script>

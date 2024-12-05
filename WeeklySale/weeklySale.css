@@ -1,32 +1,51 @@
 .WeeklySale-container{
-    position: relative;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    padding: 50px;
 }
 
-.WeeklySale-container h1 {
+ h1 {
     text-align: center;
     width: 100%;
-    position:relative;
+    position: absolute;
 }
 
-.monthly-calendar, .weekly-calendar{
+.monthly-calendar{
+    padding: 20px;
+    text-align: center;
+}
+.weekly-calendar{
     padding: 20px;
     text-align: center;
 }
 
 .weeklySale-chart {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 40px;
-    border: 1px;
-    width: 100%;
-    background-color: #ff93ac;
+    padding: 0 100px;
+    border: 1px solid #000; /* Optional border for the chart */
+    width: 80%;
+    background-color: #ffcdd9;
+    height: 70vh;
 }
 
 .weeklySaleTotal h3 {
-    padding: 20px;
+    bottom: 0;
+    position: sticky;
+    padding: 10px;
     font-size: 20px;
     text-align: center;
     width: 100%;
+    font-size: 3em;
 }
+
+canvas {
+    max-width: 100%; /* Ensure the canvas is responsive */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 100px;
+  }
+  
 
