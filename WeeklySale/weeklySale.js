@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById("salesChart").getContext("2d");
+    const ctx = document.getElementById("salesChart").getContext("2d"); // Get the canvas context
     const monthSelect = document.getElementById("month-select");
     const weekSelect = document.getElementById("week-range");
     const totalWeeklySaleElement = document.getElementById("totalWeeklySale");
@@ -20,23 +20,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function fetchAndRenderData() {
         const selectedMonth = monthSelect.value;
-        const selectedWeek = weekSelect.value.replace('Week ', ''); // Get week number
+        const selectedWeek = parseInt(weekSelect.value.replace('Week ', ''), 10); // Get week number
 
         const response = await fetch(`weeklySale.php?month=${selectedMonth}&week=${selectedWeek}`);
         const data = await response.json();
-        console.log(data);  // Debugging: log the raw data
+        console.log(data); // Debugging: log the raw data
+
+        // Determine the start and end dates of the selected week
+        const monthNumber = new Date(Date.parse(`${selectedMonth} 1`)).getMonth();
+        const startDate = new Date(new Date().getFullYear(), monthNumber, (selectedWeek - 1) * 7 + 1);
+        const endDate = new Date(new Date().getFullYear(), monthNumber, selectedWeek * 7);
 
         // Prepare data for the chart
-        const productNames = Object.keys(data);
-        const totalSold = productNames.map(product => data[product].total_sold);
-        const totalPrices = productNames.map(product => data[product].total_price);
+        const labels = []; // Exact dates in the selected week (YYYY-MM-DD)
+        const salesData = []; // Total sales amount per day in the selected week
+        let totalWeeklySale = 0;
 
-        // Calculate the total weekly sale
-        const totalWeeklySale = totalPrices.reduce((acc, price) => acc + parseFloat(price), 0);
-        totalWeeklySaleElement.innerText = `Total Weekly Sale: ${totalWeeklySale.toFixed(2)} PHP`;
+        // Populate data for the 7 days of the week
+        for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+            const day = date.getDate(); // Day of the month
+            const formattedDate = date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+            labels.push(formattedDate);
 
-        // Generate random colors for each product
-        const randomColors = productNames.map(() => getRandomColor());
+            let dailyTotal = 0;
+            // Aggregate sales for this day across all products
+            Object.keys(data).forEach(productName => {
+                if (data[productName][day]) {
+                    dailyTotal += data[productName][day].total_amount;
+                }
+            });
+
+            salesData.push(dailyTotal); // Add total sales for this day
+            totalWeeklySale += dailyTotal; // Update total weekly sale
+        }
+
+        // Generate a unique color for each bar
+        const barColors = labels.map(() => getRandomColor());
+
+        // Display total weekly sale
+        totalWeeklySaleElement.innerText = `Total Weekly Sale: ₱${totalWeeklySale.toFixed(2)} PHP`;
 
         // Create or update the chart
         if (window.salesChartInstance) {
@@ -44,25 +66,52 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         window.salesChartInstance = new Chart(ctx, {
-            type: "bar",
+            type: "bar", // Bar chart type
             data: {
-                labels: productNames,
+                labels: labels,
                 datasets: [{
-                    label: 'Total Sold',
-                    data: totalSold,
-                    backgroundColor: randomColors,  // Use the random colors for each bar
-                    borderColor: randomColors.map(color => color.replace('0.6', '1')), // Make the border darker
+                    label: 'Total Sales Amount Per Day',
+                    data: salesData,
+                    backgroundColor: barColors,
+                    borderColor: barColors.map(color => color.replace('0.6', '1')), // Use darker border for borders
                     borderWidth: 1
                 }]
             },
             options: {
                 scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Sales Amount (₱)'
+                        },
+                        ticks: {
+                            callback: function (value) {
+                                return `₱${value.toFixed(2)}`; // Format Y-axis as currency
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `₱${context.raw.toFixed(2)} PHP`; // Format tooltip value
+                            }
+                        }
                     }
                 }
             }
         });
     }
 });
+
+
+
 

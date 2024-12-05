@@ -19,39 +19,61 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         // Ensure chart labels (days) and dataset values align
-        const labels = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
-        let datasets = [];
+        const labels = Array.from({ length: 31 }, (_, i) => `${i + 1}`);  // Days 1-31
+        const dailyTotalAmounts = Array(31).fill(0); // Initialize an array to store total sales amount for each day
         let totalSalesAmount = 0;
-    
+
+        // Calculate the total sales amount for each day
         for (const productName in salesData) {
             const productData = salesData[productName];
-            const salesValues = labels.map(day => productData[day]?.total_sold || 0);
-            const totalAmounts = labels.map(day => productData[day]?.total_amount || 0);
-    
-            totalSalesAmount += totalAmounts.reduce((a, b) => a + b, 0);
-    
-            datasets.push({
-                label: productName,
-                data: salesValues,
-                backgroundColor: getRandomColor(),
-                borderColor: "rgba(54, 162, 235, 1)",
-                borderWidth: 1,
-            });
+
+            // Add the total amount for each day
+            for (let i = 0; i < 31; i++) {
+                const day = i + 1;
+                const dailyAmount = productData[day]?.total_amount || 0;
+                dailyTotalAmounts[i] += dailyAmount; // Add product's daily amount to the total for that day
+            }
+
+            totalSalesAmount += Object.values(productData).reduce((acc, val) => acc + val.total_amount, 0);
         }
     
         totalSaleElement.innerText = `Total Monthly Sales: ₱${totalSalesAmount.toFixed(2)} PHP`;
+    
+        // Create a dataset with the total amount per day
+        const datasets = [{
+            label: 'Total Sales Amount per Day',
+            data: dailyTotalAmounts,
+            backgroundColor: getRandomColor(),
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 2,
+            fill: false,  // Set fill to false for line graph
+            tension: 0.4, // Adjust tension to make the line smoother
+        }];
     
         if (salesChart) {
             salesChart.destroy();
         }
     
         salesChart = new Chart(ctx, {
-            type: "bar",
-            data: { labels, datasets },
-            options: { scales: { y: { beginAtZero: true } } },
+            type: "line",  // Change chart type to "line"
+            data: {
+                labels,  // Days of the month
+                datasets,
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return `₱${value.toFixed(2)}`;  // Format y-axis as currency
+                            }
+                        }
+                    }
+                }
+            },
         });
     }
-    
 
     // Helper function to generate random colors
     function getRandomColor() {
