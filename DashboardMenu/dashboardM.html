@@ -6,6 +6,9 @@
   <title>Analytics Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="dashboardM.css">
+  <link rel="stylesheet" href="/MonthlySale/monthlySale.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="dashboard">
@@ -42,7 +45,7 @@
         </li>
         <li id="monthly-sales-tab">
           <i class="fas fa-calendar-alt"></i>
-          <span><a href="/MonthlySale/monthlySale.html">Monthly Sales</a></span>
+          <span>Monthly Sales</span>
         </li>
         <li id="monthly-product-sales-tab">
           <i class="fas fa-cubes"></i>
@@ -58,58 +61,15 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="header">
-        <div class="header-container">
-          <div class="header-left">
-            <span class="header-name">Dashboard</span>
-            <button class="menu-btn">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-          <div class="header-search">
-            <input type="text" placeholder="Search..." />
-            <button class="search-btn">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-          <div class="header-right">
-            <div class="icon-tabs">
-              <i class="fas fa-bell"></i>
-              <i class="fas fa-envelope"></i>
-              <i class="fas fa-cog"></i>
-            </div>
-            <div class="profile-tab">
-              <img src="https://via.placeholder.com/40" alt="Profile Image" />
-            </div>
-          </div>
-        </div>
+        
       </header>
       <div class="main-section" id="main-section">
-        <div class="overview" id="overview">
-          <div class="card" id="total-revenue">
-            <i class="fas fa-sack-dollar"></i>
-            <h3>Total Revenue</h3>
-            <p id="revenue-data">Loading...</p>
-          </div>
-          <div class="card" id="net-profit">
-            <i class="fas fa-chart-line"></i>
-            <h3>Net Profit</h3>
-            <p id="profit-data">Loading...</p>
-          </div>
-          <div class="card" id="time-sold">
-            <i class="fas fa-clock"></i>
-            <h3>Time Sold</h3>
-            <p id="time-data">Loading...</p>
-          </div>
-          <div class="card" id="growth">
-            <i class="fas fa-arrow-up"></i>
-            <h3>Growth</h3>
-            <p id="growth-data">Loading...</p>
-          </div>
-        </div>
+        
       </div>
     </main>
   </div>
   <script src="dashboardM.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/MonthlySale/monthlySale.js" defer></script>
+
 </body>
 </html>

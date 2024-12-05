@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to fetch and render data
     async function fetchAndRenderData() {
         const selectedMonth = monthSelect.value;
-        const response = await fetch(`monthlySale.php?month=${selectedMonth}`);
+        const response = await fetch(`/MonthlySale/monthlySale.php?month=${selectedMonth}`);
         
         const salesData = await response.json();
         console.log(salesData); // Check the fetched data

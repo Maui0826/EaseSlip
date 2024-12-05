@@ -21,7 +21,7 @@
   
   .dashboard {
     display: flex;
-    height: 100vh;
+    height: 98vh;
     width: 100vw;
     overflow: hidden;
   }
@@ -95,7 +95,7 @@
   
   .main-section {
     width: 95%;
-    height: 80%;
+    height: 93%;
     background-color: var(--background);
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
