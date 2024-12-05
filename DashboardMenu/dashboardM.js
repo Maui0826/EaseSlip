@@ -13,45 +13,46 @@ const mainSection = document.getElementById('main-section');
 // Function to dynamically load Monthly Sales Content
 const loadMonthlySales = () => {
   $.ajax({
-    url: '/MonthlySale/monthlySale.php',
+    url: '/MonthlySale/monthlySale.php', // Adjust the path if needed
     method: 'GET',
     success: (response) => {
-      mainSection.innerHTML =     `
-      <h1>Monthly SALE DASHBOARD</h1>
-      <div class="MonthlySale-container">
-          <div class="monthly-calendar">
-              <label for="month-select">Month:</label>
-              <select id="month-select">
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-              </select>
-          </div>
-          <div class="monthlySale-chart">
-              <canvas id="salesChart"></canvas>
-          </div>
-          <div class="monthlySaleTotal">
-              <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
-          </div>
-      </div>`; // Load content from PHP dynamically
-      loadAssets(); // Load associated CSS and JS
+      mainSection.innerHTML = `
+        <h1>Monthly SALE DASHBOARD</h1>
+        <div class="MonthlySale-container">
+            <div class="monthly-calendar">
+                <label for="month-select">Month:</label>
+                <select id="month-select">
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+            </div>
+            <div class="monthlySale-chart">
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="monthlySaleTotal">
+                <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
+            </div>
+        </div>
+      `;
+
+      // Call function to load the chart with data
+      loadSalesChart(response);
     },
-    error: (xhr, status, error) => {
-      console.error(`Error: ${error}, Status: ${status}`);
+    error: () => {
       mainSection.innerHTML = `<h2>Error</h2><p>Failed to load Monthly Sales data.</p>`;
     }
   });
 };
-
 
 // Function to dynamically load CSS and JS
 const loadAssets = () => {
@@ -67,6 +68,70 @@ const loadAssets = () => {
     script.defer = true;
     document.body.appendChild(script);
   }
+};
+
+// Function to render the sales chart
+const loadSalesChart = (salesData) => {
+  const ctx = document.getElementById('salesChart').getContext('2d');
+  const labels = [];
+  const datasets = [];
+
+  // Prepare the chart labels (days of the month)
+  for (let day = 1; day <= 31; day++) {
+    labels.push(day);
+  }
+
+  // Prepare the chart datasets (sales for each product)
+  Object.keys(salesData).forEach(productName => {
+    const productData = salesData[productName];
+    const salesValues = [];
+
+    for (let day = 1; day <= 31; day++) {
+      salesValues.push(productData[day].total_amount);
+    }
+
+    datasets.push({
+      label: productName,
+      data: salesValues,
+      fill: false,
+      borderColor: getRandomColor(),
+      tension: 0.1
+    });
+  });
+
+  // Render the chart
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return `₱${tooltipItem.raw.toFixed(2)}`;
+            }
+          }
+        }
+      }
+    }
+  });
+};
+
+// Function to generate random color for each product line in chart
+const getRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 };
 
 // Tab click event handler
@@ -93,20 +158,3 @@ tabs.forEach(tab => {
 document.addEventListener('DOMContentLoaded', () => {
   fetchOverviewData();
 });
-
-function fetchOverviewData() {
-  $.ajax({
-    url: 'fetch_overview.php',
-    method: 'GET',
-    dataType: 'json',
-    success: (data) => {
-      $('#revenue-data').text(data.revenue);
-      $('#profit-data').text(data.profit);
-      $('#time-data').text(data.time_sold);
-      $('#growth-data').text(data.growth);
-    },
-    error: () => {
-      alert('Failed to fetch data');
-    },
-  });
-}
