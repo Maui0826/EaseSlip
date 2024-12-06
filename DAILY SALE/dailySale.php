@@ -2,10 +2,11 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php"; // Adjust the path as needed
 
-// Get the selected date from the query parameter
+// Get the selected date and year from the query parameters
 $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y'); // Default to current year
 
-// Prepare the SQL query to fetch sales data for the selected date
+// Prepare the SQL query to fetch sales data for the selected date and year
 $query = "
     SELECT p.prod_name, 
            SUM(t.sold) AS total_sold, 
@@ -13,13 +14,13 @@ $query = "
            SUM(t.sold * p.prod_price) AS total_amount
     FROM transaction t
     JOIN product p ON t.productID = p.productID
-    WHERE DATE(t.sold_date) = ?
+    WHERE DATE(t.sold_date) = ? AND YEAR(t.sold_date) = ?
     GROUP BY p.prod_name, p.prod_price
     ORDER BY p.prod_name
 ";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param('s', $selectedDate);
+$stmt->bind_param('ss', $selectedDate, $selectedYear);
 $stmt->execute();
 $result = $stmt->get_result();
 

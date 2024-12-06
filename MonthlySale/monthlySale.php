@@ -2,8 +2,11 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php"; // Adjust the path as needed
 
-// Get the selected month from the query parameter
+// Get the selected month and year from the query parameters
 $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('F');
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
+
+// Convert the month name to month number
 $monthNumber = date('m', strtotime($selectedMonth));
 
 // Prepare the SQL query to fetch sales data, including product price
@@ -14,13 +17,13 @@ $query = "
            p.prod_price
     FROM transaction t
     JOIN product p ON t.productID = p.productID
-    WHERE MONTH(t.sold_date) = ?
+    WHERE MONTH(t.sold_date) = ? AND YEAR(t.sold_date) = ?
     GROUP BY day, p.prod_name, p.prod_price
     ORDER BY day, p.prod_name
 ";
 
 $stmt = $conn->prepare($query);
-$stmt->bind_param('i', $monthNumber);
+$stmt->bind_param('ii', $monthNumber, $selectedYear); // Bind both month and year
 $stmt->execute();
 $result = $stmt->get_result();
 

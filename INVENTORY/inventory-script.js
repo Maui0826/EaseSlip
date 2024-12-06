@@ -65,7 +65,7 @@ function fetchItems(category = null) {
 
           const card = $(` 
               <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
-                  <img src="/POS/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/images/fallback.jpg';">
+                  <img src="/POS/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/uploads/fallback.jpg';">
                   <h4>${item.prod_name}</h4>
                   <p>Price: ${item.prod_price} PHP</p>
                   <p>Stock: ${item.prod_quantity}</p>

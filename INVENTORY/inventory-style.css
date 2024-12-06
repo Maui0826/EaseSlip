@@ -15,7 +15,7 @@ body {
     flex-direction: column;
     height: 100vh;
     color: var(--text);
-    background-color: var(--background);
+    background: radial-gradient(circle, var(--background), var(--button));
 }
 .container {
     display: flex;

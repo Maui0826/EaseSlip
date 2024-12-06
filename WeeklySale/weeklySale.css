@@ -27,36 +27,48 @@ h1 {
 
 .WeeklySale-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     width: 100%;
 }
 
+.year-selector,
 .monthly-calendar,
 .weekly-calendar {
-    padding: 0; /* Reduced padding */
-    text-align: center;
-    width: 48%; /* Reduced width */
-    margin-bottom: 10px; /* Reduced margin */
+    display: flex;
+    flex-direction: column; /* Arrange label above the select */
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
+.year-selector label,
+.monthly-calendar label,
+.weekly-calendar label {
+    margin-bottom: 5px; /* Space between label and dropdown */
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.year-selector select,
 .monthly-calendar select,
 .weekly-calendar select {
-    width: 100%;
-    padding: 8px; /* Reduced padding */
-    font-size: 1rem;
+    width: 150px; /* Set a consistent width for all dropdowns */
+    padding: 8px;
+    font-size: 0.9rem; /* Smaller font size */
     border: 1px solid #ccc;
-    border-radius: 20px; /* Rounded edges */
+    border-radius: 5px; /* Slightly rounded corners */
     box-sizing: border-box;
     transition: all 0.3s ease;
 }
 
-.monthly-calendar,
-.weekly-calendar {
-    display: inline-block;
-    margin-right: 4%; /* Add some space between them */
+.WeeklySale-container > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .weeklySale-chart {

@@ -60,13 +60,12 @@
 
     <!-- Main Content -->
     <main class="main-content">
-      
       <div class="main-section" id="main-section">
-        <h1>
-        Monthly SALE DASHBOARD
-    </h1>
-    <div class="MonthlySale-container">
-        <div class="monthly-calendar">
+        <h1>Monthly SALE DASHBOARD</h1>
+        
+        <div class="MonthlySale-container">
+          <!-- Monthly Calendar Section -->
+          <div class="monthly-calendar">
             <label for="month-select">Month:</label>
             <select id="month-select">
               <option value="January">January</option>
@@ -82,19 +81,27 @@
               <option value="November">November</option>
               <option value="December">December</option>
             </select>
-        </div>
-        <div class="monthlySale-chart">
-            <canvas id="salesChart">
+            
+            <label for="year-select">Year:</label>
+            <select id="year-select">
+              <!-- Years will be dynamically populated -->
+            </select>
+          </div>
 
-            </canvas>
-        </div>
-        <div class="monthlySaleTotal">
+          <!-- Monthly Sale Chart Section -->
+          <div class="monthlySale-chart">
+            <canvas id="salesChart"></canvas>
+          </div>
+
+          <!-- Monthly Sale Total Section -->
+          <div class="monthlySaleTotal">
             <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
+          </div>
         </div>
-    </div>
       </div>
     </main>
   </div>
+
   <script src="/DashboardMenu/dashboardM.js"></script>
   <script src="monthlySale.js"></script>
 </body>

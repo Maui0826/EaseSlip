@@ -1,3 +1,10 @@
+body {
+  overflow-x: hidden;  /* Enable horizontal scrolling */
+  white-space: nowrap;  /* Prevent text wrapping */
+  margin: 0;
+  padding: 0;
+}
+
 /* Daily Sale Container */
 .dailySale-container {
   display: flex;
@@ -6,6 +13,64 @@
   justify-content: center;
   padding: 50px;
 }
+
+
+.daily-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0; /* Adds space above and below the block */
+  padding: 10px;
+  width: 100%; /* Full width container */
+  max-width: 300px; /* Set a max width for the block */
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.daily-date label {
+  font-size: 1rem; /* Label font size */
+  font-weight: bold; /* Make label text bold */
+  color: #333; /* Dark text color */
+  margin-bottom: 8px; /* Adds space below the label */
+  text-align: center; /* Centers the label text */
+}
+
+.daily-date input[type="date"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Rounded corners for the input */
+  width: 100%; /* Make the input take full width of the container */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+  transition: all 0.3s ease; /* Smooth transition for focus effect */
+}
+
+.daily-date input[type="date"]:focus {
+  border-color: #4CAF50; /* Green border on focus */
+  outline: none; /* Remove the default focus outline */
+}
+
+@media (max-width: 768px) {
+  .daily-date {
+      max-width: 250px; /* Smaller max width on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .daily-date {
+      max-width: 200px; /* Smaller max width on mobile */
+      padding: 8px; /* Reduce padding on small screens */
+  }
+  .daily-date label {
+      font-size: 0.9rem; /* Slightly smaller font size for the label */
+  }
+  .daily-date input[type="date"] {
+      font-size: 0.9rem; /* Slightly smaller font size for the input */
+  }
+}
+
 
 /* Main Header */
 h1 {
