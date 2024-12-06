@@ -134,7 +134,6 @@ const getRandomColor = () => {
   return color;
 };
 
-// Tab click event handler
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     // Remove active class from all tabs
@@ -143,13 +142,32 @@ tabs.forEach(tab => {
 
     // Update the main content based on the tab
     const tabName = tab.querySelector('span').textContent;
+
     if (tab.id === 'logout-tab') {
       mainSection.innerHTML = `<h2>Goodbye!</h2><p>You have successfully logged out.</p>`;
+    } else if (tab.id === 'inventory-tab') {
+      window.location.href = '/INVENTORY/inventory.html'; // Navigate to Inventory page
+    } else if (tab.id === 'pos-tab') {
+      window.location.href = '/POS/billing.html'; // Navigate to POS page
+    } else if (tab.id === 'daily-sales-tab') {
+      window.location.href = '/DAILY SALE/daily-sale.html'; // Navigate to Daily Sales page
+    } else if (tab.id === 'daily-product-sales-tab') {
+      window.location.href = '/DAILY PRODUCT SALE/daily-product-sale.html'; // Navigate to Daily Product Sales page
+    } else if (tab.id === 'weekly-sales-tab') {
+      window.location.href = '/WeeklySale/weeklySale.html'; // Navigate to Weekly Sales page
+    } else if (tab.id === 'weekly-product-sales-tab') {
+      window.location.href = '/WeeklyProductSale/weeklyProductSale.html'; // Navigate to Weekly Product Sales page
     } else if (tab.id === 'monthly-sales-tab') {
-      
+      window.location.href = '/MonthlySale/monthlySale.html'; // Navigate to Monthly Sales page
+    } else if (tab.id === 'monthly-product-sales-tab') {
+      window.location.href = '/MonthlyProductSale/montlyProductSale.html'; // Navigate to Monthly Product Sales page
     } else {
       mainSection.innerHTML = `<h2>${tabName}</h2><p>Details about ${tabName} will appear here.</p>`;
     }
   });
 });
 
+// Fetch Overview Data
+document.addEventListener('DOMContentLoaded', () => {
+  fetchOverviewData();
+});
