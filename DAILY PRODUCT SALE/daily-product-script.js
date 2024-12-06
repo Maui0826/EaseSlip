@@ -1,27 +1,40 @@
-// Function to repeat the product-item div a specified number of times
-function repeatProductItems(num) {
-  const container = document.getElementById('product-item-container'); // Get the container element
-
-  // Loop to create and insert the desired number of product items
-  for (let i = 0; i < num; i++) {
-      // Create a new product-item div
-      const productItem = document.createElement('div');
-      productItem.classList.add('product-item'); // Add class for styling
-
-      // Add HTML content to the new product-item div
-      productItem.innerHTML = `
+async function fetchProductData() {
+    try {
+      // Fetch data from the PHP script
+      const response = await fetch('daily-product-php.php');
+      const products = await response.json();
+      console.log(products);
+  
+      const container = document.getElementById('product-item-container');
+      container.innerHTML = ''; // Clear container before appending data
+  
+      let totalSales = 0;
+  
+      products.forEach((product, index) => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+  
+        productItem.innerHTML = `
           <img src="/assets/LOGO.png" alt="LOGO">
           <div class="product-details">
-              <h2 class="item" id="item-${i}">Item ${i + 1}</h2>
-              <p>Quantity: <span id="quantity-${i}">30</span></p>
-              <p>Total: <span id="total-${i}">2030PHP</span></p>
+            <h2 class="item" id="item-${index}">${product.prod_name}</h2>
+            <p>Quantity Sold: <span id="quantity-${index}">${product.total_sold}</span></p>
+            <p>Total Sales: <span id="total-${index}">${product.total_price} PHP</span></p>
           </div>
-      `;
-
-      // Append the new product-item div to the container
-      container.appendChild(productItem);
+        `;
+  
+        container.appendChild(productItem);
+  
+        totalSales += parseFloat(product.total_price);
+      });
+  
+      // Update total sales
+      document.getElementById('totalAmount').textContent = `Total Daily Product Sales: ${totalSales} PHP`;
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
   }
-}
-
-// Example: Repeat the product item 5 times
-repeatProductItems(8);
+  
+  // Fetch and display product data on page load
+  fetchProductData();
+  
