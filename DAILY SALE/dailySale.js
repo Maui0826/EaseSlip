@@ -25,22 +25,24 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-            let totalSalesAmount = 0;
+        let totalSalesAmount = 0;
 
-            // Get product names and their corresponding total amounts
-            const productNames = Object.keys(salesData);
-            const dailyTotalAmounts = productNames.map(productName => ({
-                productName,
-                dailyAmount: salesData[productName].total_amount
-            }));
-
-            // Sort products by their sales amounts in ascending order
-            dailyTotalAmounts.sort((a, b) => a.dailyAmount - b.dailyAmount);
-
-            const sortedProductNames = dailyTotalAmounts.map(item => item.productName);
-            const sortedDailyTotalAmounts = dailyTotalAmounts.map(item => item.dailyAmount);
-
-            totalSaleElement.innerText = `Total Daily Sales: ₱${totalSalesAmount.toFixed(2)} PHP`;
+        // Get product names and their corresponding total amounts
+        const productNames = Object.keys(salesData);
+        const dailyTotalAmounts = productNames.map(productName => {
+            const dailyAmount = salesData[productName].total_amount;
+            totalSalesAmount += dailyAmount; // Add to total sales
+            return { productName, dailyAmount };
+        });
+        
+        // Sort products by their sales amounts in ascending order
+        dailyTotalAmounts.sort((a, b) => a.dailyAmount - b.dailyAmount);
+        
+        const sortedProductNames = dailyTotalAmounts.map(item => item.productName);
+        const sortedDailyTotalAmounts = dailyTotalAmounts.map(item => item.dailyAmount);
+        
+        totalSaleElement.innerText = `Total Daily Sales: ₱${totalSalesAmount.toFixed(2)} PHP`;
+        
 
             // Generate unique random colors for each bar
             const backgroundColors = sortedProductNames.map(() => getRandomColor());

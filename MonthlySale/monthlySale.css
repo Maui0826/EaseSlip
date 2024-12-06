@@ -55,7 +55,7 @@ h1 {
 .monthlySale-chart canvas {
     width: 100%;
     height: auto;
-    max-width: 500px; /* Set max width for chart */
+    max-width: 1200px; /* Set max width for chart */
     margin-bottom: 15px;
 }
 

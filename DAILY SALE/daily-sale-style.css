@@ -95,9 +95,9 @@ h1 {
   align-items: center;
   padding: 10px;
   border: 1px solid #000; /* Optional border for the chart */
-  width: 90%;
+  width: 70vw;
   background-color: #fff;
-  height: 100%;
+  height: 50vh;
 }
 
 /* Daily Sale Total */
