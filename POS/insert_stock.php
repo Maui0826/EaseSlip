@@ -43,7 +43,15 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $insertProductQuery = "INSERT INTO product (categoryID, prod_name, prod_price, prod_quantity, image_path) 
                                VALUES ('$categoryID', '$name', '$price', '$quantity', '$imagePath')";
         if ($conn->query($insertProductQuery) === TRUE) {
-            echo "Stock successfully added!";
+            $productID = $conn->insert_id; // Get the newly inserted productID
+
+            // Insert productID into stock table
+            $insertStockQuery = "INSERT INTO stock (productID, stock_quantity) VALUES ('$productID', '$quantity')";
+            if ($conn->query($insertStockQuery) === TRUE) {
+                echo "Stock successfully added!";
+            } else {
+                echo "Error inserting into stock table: " . $conn->error;
+            }
         } else {
             echo "Error inserting product: " . $conn->error;
         }
@@ -56,3 +64,4 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
 $conn->close();
 ?>
+
