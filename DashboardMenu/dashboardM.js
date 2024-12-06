@@ -153,7 +153,3 @@ tabs.forEach(tab => {
   });
 });
 
-// Fetch Overview Data
-document.addEventListener('DOMContentLoaded', () => {
-  fetchOverviewData();
-});

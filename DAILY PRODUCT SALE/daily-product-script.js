@@ -53,6 +53,6 @@ async function fetchProductData(date) {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('date-select').value = today;
   fetchProductData(today);
-  
-  
+
+
   
