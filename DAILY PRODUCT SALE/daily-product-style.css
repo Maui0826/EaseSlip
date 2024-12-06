@@ -26,6 +26,12 @@ h1 {
   width: 100%;
 }
 
+.daily-date {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.5em; /* Default font size */
+}
+
 .product-item-container {
   display: flex;
   flex-wrap: wrap; /* This ensures the items wrap into new rows when necessary */
@@ -44,4 +50,12 @@ h1 {
   text-align: center;
   padding: 15px;
   box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}
+
+.product-item img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover; /* Ensures the image fits within the dimensions while maintaining aspect ratio */
+  margin-bottom: 10px; /* Optional: Adds spacing below the image */
+  border-radius: 5px; /* Optional: Adds rounded corners to the image */
 }

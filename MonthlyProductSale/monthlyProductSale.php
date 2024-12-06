@@ -2,18 +2,18 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-// Enable error reporting for debugging
+// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Get the POST data (JSON format)
+// Get the POST data (month)
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
-// Extract the selected date
-$date = isset($data['date']) ? $data['date'] : date('Y-m-d'); // Default to today's date
+// Extract selected month
+$month = isset($data['month']) ? $data['month'] : date('F'); 
 
-// Query to fetch product and transaction data for the selected date
+// Query to fetch product and transaction data for the selected month
 $sql = "
     SELECT 
         p.productID,
@@ -23,29 +23,26 @@ $sql = "
         (SUM(t.sold) * p.prod_price) AS total_price
     FROM product p
     LEFT JOIN transaction t ON p.productID = t.productID
-    WHERE DATE(t.sold_date) = ?
+    WHERE MONTH(t.sold_date) = MONTH(CURDATE())
+      AND YEAR(t.sold_date) = YEAR(CURDATE())
     GROUP BY p.productID, p.prod_name, p.prod_price, p.image_path
 ";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $date);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $data = [];
 
 if ($result->num_rows > 0) {
-    // Fetch data as associative array
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
 }
 
-// Set the content type to JSON
 header('Content-Type: application/json');
 echo json_encode($data);
 
-// Close the database connection
 $conn->close();
 ?>
 
