@@ -1,7 +1,14 @@
-async function fetchProductData() {
+async function fetchProductData(date) {
     try {
-      // Fetch data from the PHP script
-      const response = await fetch('daily-product-php.php');
+      // Send the selected date to the PHP script
+      const response = await fetch('daily-product-php.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ date }),
+      });
+  
       const products = await response.json();
       console.log(products);
   
@@ -15,13 +22,14 @@ async function fetchProductData() {
         productItem.classList.add('product-item');
   
         productItem.innerHTML = `
-          <img src="/assets/LOGO.png" alt="LOGO">
+          <img src="/POS/${product.image_path}" alt="${product.prod_name}">
           <div class="product-details">
             <h2 class="item" id="item-${index}">${product.prod_name}</h2>
             <p>Quantity Sold: <span id="quantity-${index}">${product.total_sold}</span></p>
             <p>Total Sales: <span id="total-${index}">${product.total_price} PHP</span></p>
           </div>
         `;
+        console.log(product.image_path);
   
         container.appendChild(productItem);
   
@@ -29,12 +37,22 @@ async function fetchProductData() {
       });
   
       // Update total sales
-      document.getElementById('totalAmount').textContent = `Total Daily Product Sales: ${totalSales} PHP`;
+      document.getElementById('totalAmount').textContent = `Total Daily Product Sales: ${totalSales.toFixed(2)} PHP`;
     } catch (error) {
       console.error('Error fetching product data:', error);
     }
   }
   
-  // Fetch and display product data on page load
-  fetchProductData();
+  // Event listener for date input
+  document.getElementById('date-select').addEventListener('change', (event) => {
+    const selectedDate = event.target.value;
+    fetchProductData(selectedDate);
+  });
+  
+  // Fetch data for the current date on page load
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('date-select').value = today;
+  fetchProductData(today);
+  
+  
   

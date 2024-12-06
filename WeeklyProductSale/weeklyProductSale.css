@@ -44,4 +44,36 @@ h1 {
     text-align: center;
     padding: 15px;
     box-sizing: border-box; /* Ensures padding is included in the width calculation */
+  }
+
+.product-item img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover; /* Ensures the image fits within the dimensions while maintaining aspect ratio */
+    margin-bottom: 10px; /* Optional: Adds spacing below the image */
+    border-radius: 5px; /* Optional: Adds rounded corners to the image */
+  }
+
+.product-details {
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
+
+.total-wps {
+    padding: 20px;
+    font-weight: bold;
+    background-color: #ffeb3d;
+    text-align: center;
+}
+
+.monthly-calendar {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em; /* Default font size */
+  }
+.weekly-calendar {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em; /* Default font size */
+  }
