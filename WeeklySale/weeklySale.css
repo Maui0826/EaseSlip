@@ -1,51 +1,147 @@
-.WeeklySale-container{
+.main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px; /* Reduced padding */
+}
+
+.main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 50px;
-}
-
- h1 {
-    text-align: center;
+    justify-content: flex-start;
     width: 100%;
-    position: absolute;
+    padding: 10px; /* Reduced padding */
 }
 
-.monthly-calendar{
-    padding: 20px;
+header.header {
+    width: 100%;
     text-align: center;
+    padding-bottom: 10px; /* Reduced padding */
 }
-.weekly-calendar{
-    padding: 20px;
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0; /* Reduced margin */
+}
+
+.WeeklySale-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px; /* Reduced padding */
+    width: 100%;
+}
+
+.monthly-calendar,
+.weekly-calendar {
+    padding: 0; /* Reduced padding */
     text-align: center;
+    width: 48%; /* Reduced width */
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.monthly-calendar select,
+.weekly-calendar select {
+    width: 100%;
+    padding: 8px; /* Reduced padding */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Rounded edges */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.monthly-calendar,
+.weekly-calendar {
+    display: inline-block;
+    margin-right: 4%; /* Add some space between them */
 }
 
 .weeklySale-chart {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 100px;
-    border: 1px solid #000; /* Optional border for the chart */
-    width: 80%;
+    padding: 0 10px;
+    border: 1px solid #000;
+    width: 100%;
     background-color: #dfdfdf;
-    height: 70vh;
+    height: 50vh;
+    box-sizing: border-box;
+    margin-bottom: 15px; /* Reduced margin */
 }
 
 .weeklySaleTotal h3 {
-    bottom: 0;
     position: sticky;
+    bottom: 0;
     padding: 10px;
-    font-size: 20px;
+    font-size: 1.5rem;
     text-align: center;
     width: 100%;
-    font-size: 3em;
+    font-size: 2em;
 }
 
 canvas {
-    max-width: 100%; /* Ensure the canvas is responsive */
-    height: auto; /* Maintain aspect ratio */
-    margin: 0 100px;
-  }
-  
+    width: 100% !important;
+    height: auto;
+    margin: 0;
+}
 
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .WeeklySale-container {
+        padding: 5px; /* Reduced padding */
+    }
+
+    .weeklySale-chart {
+        height: 40vh;
+    }
+
+    h1 {
+        font-size: 2rem; /* Smaller font size for smaller screens */
+    }
+
+    .weeklySaleTotal h3 {
+        font-size: 1.5rem;
+    }
+
+    .monthly-calendar,
+    .weekly-calendar {
+        width: 45%; /* Reduced width for responsiveness */
+    }
+
+    .monthly-calendar select,
+    .weekly-calendar select {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .WeeklySale-container {
+        padding: 5px;
+    }
+
+    .weeklySale-chart {
+        height: 35vh;
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Smaller font size */
+    }
+
+    .weeklySaleTotal h3 {
+        font-size: 1.3rem;
+    }
+
+    .monthly-calendar,
+    .weekly-calendar {
+        width: 100%; /* Stack them on small screens */
+        margin-bottom: 10px;
+    }
+
+    .monthly-calendar select,
+    .weekly-calendar select {
+        font-size: 0.8rem;
+    }
+}

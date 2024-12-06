@@ -146,8 +146,7 @@ tabs.forEach(tab => {
     if (tab.id === 'logout-tab') {
       mainSection.innerHTML = `<h2>Goodbye!</h2><p>You have successfully logged out.</p>`;
     } else if (tab.id === 'monthly-sales-tab') {
-      loadMonthlySales(); // Insert Monthly Sales HTML
-      loadAssets(); // Load associated assets
+      
     } else {
       mainSection.innerHTML = `<h2>${tabName}</h2><p>Details about ${tabName} will appear here.</p>`;
     }
