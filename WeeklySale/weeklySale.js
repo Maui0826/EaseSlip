@@ -7,6 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
     monthSelect.addEventListener("change", fetchAndRenderData);
     weekSelect.addEventListener("change", fetchAndRenderData);
 
+
+    function setDefaultDate() {
+        // Get the current date
+        const currentDate = new Date();
+        
+        // Set the current month (0-based index, so we add 1)
+        const currentMonth = currentDate.getMonth(); // 0 = January, 11 = December
+        const monthSelect = document.getElementById('month-select');
+        monthSelect.selectedIndex = currentMonth; // Set the current month as the default
+    
+        // Set the current week (assuming 1-based week number)
+        const currentWeek = Math.ceil(currentDate.getDate() / 7); // Calculate the current week (1-4)
+        const weekSelect = document.getElementById('week-range');
+        weekSelect.selectedIndex = currentWeek - 1; // Set the current week as the default (0-based index)
+    }
+    
+    // Call the function to set the default date
+    setDefaultDate();
+    
     // Initial load
     fetchAndRenderData();
 
