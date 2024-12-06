@@ -1,4 +1,4 @@
-.MonthlySale-container{
+.MonthlySale-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,16 +6,18 @@
     padding: 50px;
 }
 
- h1 {
+h1 {
     top: 10%;
     text-align: center;
     width: 100%;
     position: absolute;
+    font-size: 2em; /* Default font size */
 }
 
-.monthly-calendar{
+.monthly-calendar {
     padding: 20px;
     text-align: center;
+    font-size: 1.5em; /* Default font size */
 }
 
 .monthlySale-chart {
@@ -31,15 +33,70 @@
 
 .monthlySaleTotal h3 {
     padding: 10px;
-    font-size: 20px;
     text-align: center;
     width: 100%;
-    font-size: 3em;
+    font-size: 3em; /* Default font size */
 }
 
 canvas {
     max-width: 100%; /* Ensure the canvas is responsive */
-    height: auto; 
+    height: auto;
     margin: 0 100px;
-  }
-  
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    .monthly-calendar {
+        font-size: 1.3em;
+    }
+    .monthlySaleTotal h3 {
+        font-size: 2.5em;
+    }
+    .monthlySale-chart {
+        width: 90%; /* Adjust the width for smaller screens */
+    }
+    canvas {
+        margin: 0 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    .monthly-calendar {
+        font-size: 1.1em;
+    }
+    .monthlySaleTotal h3 {
+        font-size: 2em;
+    }
+    .monthlySale-chart {
+        width: 100%;
+        padding: 5px;
+    }
+    canvas {
+        margin: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2em;
+    }
+    .monthly-calendar {
+        font-size: 1em;
+    }
+    .monthlySaleTotal h3 {
+        font-size: 1.5em;
+    }
+    .monthlySale-chart {
+        width: 100%;
+        padding: 5px;
+    }
+    canvas {
+        margin: 0 10px;
+    }
+}

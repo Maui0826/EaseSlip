@@ -1,4 +1,5 @@
-.daily-container {
+/* Daily Sale Container */
+.dailySale-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,38 +7,106 @@
   padding: 50px;
 }
 
+/* Main Header */
 h1 {
+  top: 10%;
   text-align: center;
   width: 100%;
   position: absolute;
+  font-size: 2em; /* Default font size */
 }
 
-.daily-calendar {
+/* Date input section */
+.daily-date {
   padding: 20px;
   text-align: center;
+  font-size: 1.5em; /* Default font size */
 }
 
-.daily-chart {
+/* Daily Sale Chart Section */
+.dailySale-chart {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 100px;
+  padding: 10px;
   border: 1px solid #000; /* Optional border for the chart */
-  width: 80%;
-  background-color: #ff93ac;
-  height: 70vh;
+  width: 90%;
+  background-color: #fff;
+  height: 100%;
 }
 
+/* Daily Sale Total */
 .dailySaleTotal h3 {
   padding: 10px;
-  font-size: 20px;
   text-align: center;
   width: 100%;
-  font-size: 3em;
+  font-size: 3em; /* Default font size */
 }
 
+/* Canvas Styling */
 canvas {
   max-width: 100%; /* Ensure the canvas is responsive */
-  height: auto; /* Maintain aspect ratio */
+  height: auto;
   margin: 0 100px;
+}
+
+/* Media Queries */
+
+/* For screen sizes below 1024px */
+@media (max-width: 1024px) {
+  h1 {
+      font-size: 1.8em;
+  }
+  .daily-date {
+      font-size: 1.3em;
+  }
+  .dailySaleTotal h3 {
+      font-size: 2.5em;
+  }
+  .dailySale-chart {
+      width: 90%; /* Adjust the width for smaller screens */
+  }
+  canvas {
+      margin: 0 50px;
+  }
+}
+
+/* For screen sizes below 768px */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 1.5em;
+  }
+  .daily-date {
+      font-size: 1.1em;
+  }
+  .dailySaleTotal h3 {
+      font-size: 2em;
+  }
+  .dailySale-chart {
+      width: 100%;
+      padding: 5px;
+  }
+  canvas {
+      margin: 0 20px;
+  }
+}
+
+/* For screen sizes below 480px */
+@media (max-width: 480px) {
+  h1 {
+      font-size: 1.2em;
+  }
+  .daily-date {
+      font-size: 1em;
+  }
+  .dailySaleTotal h3 {
+      font-size: 1.5em;
+  }
+  .dailySale-chart {
+      width: 100%;
+      padding: 5px;
+  }
+  canvas {
+      margin: 0 10px;
+  }
 }

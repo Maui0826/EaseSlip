@@ -198,7 +198,6 @@
     max-width: 300px;
     margin: 0 auto;
 }
-
 .items {
     margin-top: 30px;
     display: flex;
@@ -209,7 +208,7 @@
 }
 
 .card {
-    width: 30%;
+    width: 30%; /* Default: 3 cards per row */
     height: 350px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -254,7 +253,6 @@
     margin: 1px 0; 
 }
 
-
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -264,6 +262,19 @@
 .card-content p span {
     font-weight: bold;
     color: var(--accent);
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .card {
+        width: 45%; /* 2 cards per row for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100%; /* 1 card per row for smaller screens */
+    }
 }
 
 .bill {

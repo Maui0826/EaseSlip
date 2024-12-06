@@ -1,26 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daily Sales Dashboard</title>
-    <link rel="stylesheet" href="daily-sale-style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
-    <h1>DAILY SALE DASHBOARD</h1>
-    <div class="daily-container">
-      <div class="daily-calendar">
-        <p>Date: <input type="date" id="dateInput"></p>
-      </div>
-      <div class="daily-chart">
-        <canvas id="salesChart"></canvas>
-      </div>
-      <div class="dailySaleTotal">
-        <h3 id="totalDailySale">Total Day Sale:</h3>
-      </div>
-    </div>
-    <script src="daily-sale.js"></script>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard - Daily Sales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/DashboardMenu/dashboardM.css">
+  <link rel="stylesheet" href="daily-sale-style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Side Navigation Bar -->
+    <nav class="sidebar">
+        <ul>
+          <li  id="dashboard-tab">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+          </li>
+          <li id="inventory-tab">
+            <i class="fas fa-warehouse"></i>
+            <span><a href="/INVENTORY/inventory.html">Inventory</a></span>
+          </li>
+          <li id="pos-tab">
+            <i class="fa-solid fa-tv"></i>
+            <span><a href="/POS/billing.html">POS</a></span>
+          </li>
+          <li class="active" id="daily-sales-tab">
+            <i class="fas fa-calendar-day"></i>
+            <span><a href="/DAILY SALE/daily-sale.html">Daily Sales</a></span>
+          </li>
+          <li id="daily-product-sales-tab">
+            <i class="fas fa-box"></i>
+            <span><a href="/DAILY PRODUCT SALE/daily-product-sale.html">Daily Product Sales</a></span>
+          </li>
+          <li id="weekly-sales-tab">
+            <i class="fas fa-calendar-week"></i>
+            <span><a href="/WeeklySale/weeklySale.html">Weekly Sales</a></span>
+          </li>
+          <li id="weekly-product-sales-tab">
+            <i class="fas fa-box-open"></i>
+            <span><a href="/WeeklyProductSale/weeklyProductSale.html">Weekly Product Sales</a></span>
+          </li>
+          <li id="monthly-sales-tab">
+            <i class="fas fa-calendar-alt"></i>
+            <span><a href="/MonthlySale/monthlySale.html">Monthly Sales</a></span>
+          </li>
+          <li id="monthly-product-sales-tab">
+            <i class="fas fa-cubes"></i>
+            <span><a href="/MonthlyProductSale/montlyProductSale.html">Monthly Product Sales</a></span>
+          </li>
+          <li id="logout-tab" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span><a href="logout.php">Logout</a></span>
+          </li>
+        </ul>
+      </nav>
 
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="main-section" id="main-section">
+          <h1>Daily Sales Dashboard</h1>
+          <div class="dailySale-container">
+            <div class="daily-date">
+              <label for="date-select">Date:</label>
+              <input type="date" id="date-select">
+            </div>
+            <div class="dailySale-chart">
+              <canvas id="dailySalesChart"></canvas>
+            </div>
+            <div class="dailySaleTotal">
+              <h3 id="totalDailySale">Total Daily Sales: ₱0</h3>
+            </div>
+          </div>
+        </div>
+      </main>
+  </div>
+  <script src="/DashboardMenu/dashboardM.js"></script>
+  <script src="dailySale.js"></script>
+</body>
+</html>

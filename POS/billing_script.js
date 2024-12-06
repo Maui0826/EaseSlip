@@ -33,9 +33,29 @@ function toggleSidebar() {
 }
 
 
+// Function to filter the items based on the search term
+function searchItems() {
+    const searchTerm = $('.search-bar').val().toLowerCase(); // Get the value from the search bar
+    $('.card').each(function() {
+        const cardName = $(this).data('name'); // Get the data-name attribute of the card (which holds the product name)
+        
+        // If the card name matches the search term (case-insensitive)
+        if (cardName.includes(searchTerm)) {
+            $(this).show(); // Show matching card
+        } else {
+            $(this).hide(); // Hide non-matching card
+        }
+    });
+}
+
+// Call the searchItems function when the user types in the search bar
+$('.search-bar').on('input', function() {
+    searchItems();
+});
+
+// Fetch items and render the cards
 function fetchItems(category = null) {
-    // Send a GET request with the category parameter (if provided)
-    $.get('get_items.php', { category }, function (data) {
+    $.get('get_items.php', { category }, function(data) {
         const items = JSON.parse(data); // Parse the JSON response
         const itemsDiv = $('.items').empty(); // Clear any existing items
         
@@ -63,6 +83,7 @@ function fetchItems(category = null) {
         });
     });
 }
+
 
 function addToBill(item) {
     if (item.prod_quantity <= 0) {

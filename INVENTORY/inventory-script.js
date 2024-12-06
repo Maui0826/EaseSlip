@@ -33,6 +33,28 @@ function fetchCategories() {
 }
 
 
+
+// Function to filter the items based on the search term
+function searchItems() {
+    const searchTerm = $('.search-bar').val().toLowerCase(); // Get the value from the search bar
+    $('.card').each(function() {
+        const cardName = $(this).data('name'); // Get the data-name attribute of the card (which holds the product name)
+        
+        // If the card name matches the search term (case-insensitive)
+        if (cardName.includes(searchTerm)) {
+            $(this).show(); // Show matching card
+        } else {
+            $(this).hide(); // Hide non-matching card
+        }
+    });
+}
+
+// Call the searchItems function when the user types in the search bar
+$('.search-bar').on('input', function() {
+    searchItems();
+});
+
+// Fetch items and render the cards
 function fetchItems(category = null) {
   $.get('/POS/get_items.php', { category }, function (data) {
       const items = JSON.parse(data);
@@ -42,7 +64,7 @@ function fetchItems(category = null) {
           console.log("Image Path:", `/POS/${item.image_path}`); 
 
           const card = $(` 
-              <div class="card" data-id="${item.id}">
+              <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
                   <img src="/POS/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/images/fallback.jpg';">
                   <h4>${item.prod_name}</h4>
                   <p>Price: ${item.prod_price} PHP</p>
@@ -50,9 +72,15 @@ function fetchItems(category = null) {
               </div>
           `);
 
+          // Add click handler for each card
           card.click(() => showItemDetails(item));
+
+          // Append the card to the itemsDiv
           itemsDiv.append(card);
       });
+
+      // Call searchItems to filter the cards right after fetching them
+      searchItems();
   });
 }
 

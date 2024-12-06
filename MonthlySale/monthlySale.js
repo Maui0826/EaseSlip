@@ -3,6 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthSelect = document.getElementById("month-select");
     const totalSaleElement = document.getElementById("totalmonthlySale");
 
+    const currentMonth = new Date().getMonth();
+
+    // Map the current month number to the corresponding month name
+    const months = [
+      "January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"
+    ];
+  
+    // Set the default value of the select element to the current month
+    document.getElementById("month-select").value = months[currentMonth];
+
+
     let salesChart; // Variable to store the chart instance
 
     // Function to fetch and render data
