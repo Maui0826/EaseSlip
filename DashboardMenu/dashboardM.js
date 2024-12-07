@@ -145,6 +145,8 @@ tabs.forEach(tab => {
 
     if (tab.id === 'logout-tab') {
       mainSection.innerHTML = `<h2>Goodbye!</h2><p>You have successfully logged out.</p>`;
+    } else if (tab.id === 'dashboard-tab') {
+      window.location.href = '/DashboardMenu/dailyTransaction.html';
     } else if (tab.id === 'inventory-tab') {
       window.location.href = '/INVENTORY/inventory.html'; // Navigate to Inventory page
     } else if (tab.id === 'pos-tab') {
