@@ -12,7 +12,7 @@ function closeSidebar() {
 }
 
 function fetchCategories() {
-  $.get('/POS/get_categories.php', function (data) {
+  $.get('get_categories.php', function (data) {
       const response = JSON.parse(data);
       const username = response.username;  
       const categories = response.categories;  
@@ -56,7 +56,7 @@ $('.search-bar').on('input', function() {
 
 // Fetch items and render the cards
 function fetchItems(category = null) {
-  $.get('/POS/get_items.php', { category }, function (data) {
+  $.get('get_items.php', { category }, function (data) {
       const items = JSON.parse(data);
       const itemsDiv = $('.items').empty();
 
@@ -109,7 +109,7 @@ $('#update-item-button').click(function () {
 
     console.log('Data sent:', data);  
 
-    $.post('update_stock.php', data, function (response) {
+    $.post('/POS/update_stock.php', data, function (response) {
         alert(response);
         fetchItems(); 
     }).fail(function () {
