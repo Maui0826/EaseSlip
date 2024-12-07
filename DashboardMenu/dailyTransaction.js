@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchTransactions() {
         const date = dateSelect.value;
         if (!date) {
-            transactionTable.innerHTML = "<tr><td colspan='6'>Please select a date.</td></tr>";
+            transactionTable.innerHTML = "<tr><td colspan='7'>Please select a date.</td></tr>";
             return;
         }
 
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (data.error) {
-                transactionTable.innerHTML = `<tr><td colspan='6'>${data.error}</td></tr>`;
+                transactionTable.innerHTML = `<tr><td colspan='7'>${data.error}</td></tr>`;
                 return;
             }
 
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>₱${transaction.prod_price.toFixed(2)}</td>
                     <td>${transaction.sold}</td>
                     <td>₱${(transaction.prod_price * transaction.sold).toFixed(2)}</td>
+                    <td>${transaction.username}</td> <!-- Display username -->
                     <td>
                         <button class="delete-btn" data-id="${transaction.transactionID}">Delete</button>
                     </td>

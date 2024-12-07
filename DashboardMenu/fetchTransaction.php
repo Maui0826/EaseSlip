@@ -8,10 +8,12 @@ if (!isset($_GET['date'])) {
 
 $date = $_GET['date'];
 
-$query = "SELECT t.transactionID, p.prod_name, p.prod_price, t.sold, t.sold_date
+$query = "SELECT t.transactionID, p.prod_name, p.prod_price, t.sold, t.sold_date, u.username
           FROM transaction t
           JOIN product p ON t.productID = p.productID
+          JOIN user u ON t.userID = u.id
           WHERE DATE(t.sold_date) = ?";
+
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $date);
 $stmt->execute();
@@ -27,3 +29,4 @@ $conn->close();
 
 header('Content-Type: application/json');
 echo json_encode($transactions);
+?>
