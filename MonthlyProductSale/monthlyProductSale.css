@@ -8,7 +8,7 @@
     text-align: center;
     font-size: 1.2rem;
     box-sizing: border-box; /* Ensure padding doesn't increase size */
-    overflow: hidden; /* Hide any content overflowing from the section */
+    overflow-y: auto; /* Hide any content overflowing from the section */
   }
 
   body {
@@ -28,6 +28,7 @@
 
 /* Header Container */
 .header-container {
+    top:0;
     display: flex;
     justify-content: space-between; 
     align-items: center;
@@ -36,6 +37,7 @@
     width: 100%;
     border-radius: 16px 0 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
 }
 
 /* Header Title */
