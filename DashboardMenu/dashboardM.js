@@ -1,11 +1,40 @@
-function toggleSidebar() {
+window.onload = () => {
   const sidebar = document.getElementById("sidebar");
-  sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
-}
+  const mainSection = document.getElementById("main-section");
+  
+  // Check user role from PHP session (pass this data to the frontend dynamically)
+  fetch('LOGIN/login.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.role === 'admin') {
+        // Hide the sidebar
+        if (sidebar) {
+          sidebar.style.display = 'none';
+        }
+        
+        // Add a logout button to replace the sidebar
+        const logoutButton = document.createElement('button');
+        logoutButton.textContent = 'Logout';
+        logoutButton.style.position = 'fixed';
+        logoutButton.style.top = '10px';
+        logoutButton.style.right = '10px';
+        logoutButton.style.padding = '10px 20px';
+        logoutButton.style.backgroundColor = '#f44336';
+        logoutButton.style.color = '#fff';
+        logoutButton.style.border = 'none';
+        logoutButton.style.cursor = 'pointer';
 
-function closeSidebar() {
-  document.getElementById("sidebar").style.width = "0";
-}
+        logoutButton.addEventListener('click', () => {
+          window.location.href = '/DashboardMenu/logout.php';
+        });
+
+        document.body.appendChild(logoutButton);
+      }
+    })
+    .catch(error => console.error('Error fetching user role:', error));
+};
+
+
 
 const tabs = document.querySelectorAll('.sidebar ul li');
 const mainSection = document.getElementById('main-section');

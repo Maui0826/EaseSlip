@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="billing_styles.css">
 </head>
 <body>
+    <?php include('/fetch-role.php'); ?>
     <header>
         <div class="header-left">
             <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
-            <span class="pos-text">Point Of Sale</span>  <!-- Added text -->
+            <span class="pos-text">Point Of Sale</span>
         </div>
         <div class="header-center">
             <input type="text" class="search-bar" placeholder="Search items...">
@@ -24,19 +25,15 @@
     
     <nav class="sidebar" id="sidebar">
         <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
-        <ul>
-            <li><a href="/DashboardMenu/dashboardM.html">Dashboard</a></li>
-            <li><a href="/POS/billing.html">POS</a></li>
-            <li><a href="/INVENTORY/inventory.html">Inventory</a></li>
-        </ul>
+        <ul id="sidebar-list"></ul>
     </nav>
     
     <div class="container">
         <div class="section categories">
-            <h1 id="username"></h1>  <!-- Display the username here -->
+            <h1 id="username"></h1>
             <h2>Categories</h2>
             <button id="all-categories-button">All Categories</button>
-        </div>        
+        </div>
         <div class="section items">
             <h2>Items</h2>
         </div>
