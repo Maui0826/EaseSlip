@@ -2,7 +2,6 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,11 +9,11 @@ ini_set('display_errors', 1);
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
-// Extract selected month
+// Extract selected month and year from the request
 $month = isset($data['month']) ? $data['month'] : date('F');
-$year = date('Y');
+$year = isset($data['year']) ? $data['year'] : date('Y');
 
-// Convert month to its corresponding numeric value (e.g., "January" -> 1)
+// Convert month name to numeric value (e.g., "January" -> 1)
 $monthNumber = date('m', strtotime($month));
 
 $sql = "
@@ -32,14 +31,13 @@ $sql = "
 
 $stmt = $conn->prepare($sql);
 
-// Bind parameters to the query (month and year)
+// Bind the parameters to the query
 $stmt->bind_param("ii", $monthNumber, $year);
 $stmt->execute();
 
 $result = $stmt->get_result();
 
 $data = [];
-
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
@@ -51,5 +49,6 @@ echo json_encode($data);
 
 $conn->close();
 ?>
+
 
 
