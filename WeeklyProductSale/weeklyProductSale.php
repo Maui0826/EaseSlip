@@ -1,52 +1,63 @@
 <?php
 session_start();
-require "/xampp/htdocs/Ease_Slip/assets/connection.php";
+require "/xampp/htdocs/Ease_Slip/assets/connection.php"; // Adjust the path as needed
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Get the selected month and year from the query parameters
+$selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('F');
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
 
-// Get the POST data in JSON format
-$input = file_get_contents("php://input");
-$data = json_decode($input, true);
+// Convert the month name to its respective number
+$monthNumber = date('m', strtotime($selectedMonth));
 
-$month = $data['month'] ?? date('F');   // Default to the current month
-$week = $data['week'] ?? 1;             // Default to Week 1
-
-// Determine the date range for filtering the selected month and week
-$currentYear = date('Y');
-$currentMonth = date('m');
-
-// Define the start and end dates for the selected week
-$startOfWeek = date("Y-m-d", strtotime("first day of $month $currentYear"));
-$endOfWeek = date("Y-m-d", strtotime("last day of $month $currentYear"));
-
-$sql = "
-    SELECT 
-        p.productID,
-        p.prod_name,
-        p.image_path,
-        SUM(t.sold) AS total_sold,
-        (SUM(t.sold) * p.prod_price) AS total_price
-    FROM product p
-    LEFT JOIN transaction t ON p.productID = t.productID
-    WHERE DATE(t.sold_date) BETWEEN ? AND ?
-    GROUP BY p.productID, p.prod_name, p.prod_price, p.image_path
+// Prepare the SQL query to fetch sales data, including product price, year, and image path
+$query = "
+    SELECT DAY(t.sold_date) AS day, 
+           SUM(t.sold) AS total_sold, 
+           p.prod_name, 
+           p.prod_price, 
+           p.image_path
+    FROM transaction t
+    JOIN product p ON t.productID = p.productID
+    WHERE MONTH(t.sold_date) = ? AND YEAR(t.sold_date) = ?
+    GROUP BY day, p.prod_name, p.prod_price, p.image_path
+    ORDER BY day, p.prod_name
 ";
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('ss', $startOfWeek, $endOfWeek);
+$stmt = $conn->prepare($query);
+$stmt->bind_param('ii', $monthNumber, $selectedYear); // Bind both month and year parameters
 $stmt->execute();
-
 $result = $stmt->get_result();
 
-$data = [];
+// Fetch results into an associative array
+$salesData = [];
 while ($row = $result->fetch_assoc()) {
-    $data[] = $row;
+    $day = intval($row['day']);
+    $productName = $row['prod_name'];
+    $totalSold = intval($row['total_sold']);
+    $price = floatval($row['prod_price']); // Ensure the price is a float
+    $imagePath = $row['image_path']; // Fetch the image path
+
+    // Calculate total amount sold for that product and day
+    $totalAmount = $totalSold * $price;
+
+    // If product name does not exist in the array, create an empty array for it
+    if (!isset($salesData[$productName])) {
+        $salesData[$productName] = [
+            'image_path' => $imagePath,
+            'sales' => array_fill(1, 31, ['total_sold' => 0, 'total_amount' => 0])
+        ];
+    }
+
+    // Add the new transaction's values to the existing values
+    $salesData[$productName]['sales'][$day]['total_sold'] += $totalSold;
+    $salesData[$productName]['sales'][$day]['total_amount'] += $totalAmount;
 }
+
+// Close the connection
+$stmt->close();
+$conn->close();
 
 // Return the data as JSON
 header('Content-Type: application/json');
-echo json_encode($data);
-
-$conn->close();
+echo json_encode($salesData);
 ?>

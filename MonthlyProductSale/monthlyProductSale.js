@@ -14,28 +14,41 @@ async function fetchMonthlyProductData(month, year) {
         const container = document.getElementById('product-item-container');
         container.innerHTML = ''; // Clear container before appending new items
 
+        // Check if the products array is empty
+        if (!products || products.length === 0) {
+            container.innerHTML = '<p>No sales data available for the selected month.</p>'; // Message to display when no data
+            document.getElementById('totalAmount').textContent = `Total Monthly Product Sales: ₱0.00 PHP`;
+            return; // Exit the function since there's no data
+        }
+
         let totalSales = 0;
 
-        products.forEach((product, index) => {
+        products.forEach((product) => {
             const productItem = document.createElement('div');
             productItem.classList.add('product-item');
 
             productItem.innerHTML = `
-                <img src="/INVENTORY/${product.image_path}" alt="${product.prod_name}">
+                <img src="/INVENTORY/${product.image_path}" alt="${product.prod_name}" onerror="this.src='/default-image.jpg';">
                 <div class="product-details">
                     <h2 class="item">${product.prod_name}</h2>
                     <p>Quantity Sold: <span>${product.total_sold}</span></p>
-                    <p>Total Sales: <span>${product.total_price} PHP</span></p>
+                    <p>Total Sales: <span>₱${parseFloat(product.total_price).toFixed(2)} PHP</span></p>
                 </div>
             `;
-            
+
             container.appendChild(productItem);
             totalSales += parseFloat(product.total_price);
         });
 
-        document.getElementById('totalAmount').textContent = `Total Monthly Product Sales: ${totalSales.toFixed(2)} PHP`;
+        // Update the total sales display
+        document.getElementById('totalAmount').textContent = `Total Monthly Product Sales: ₱${totalSales.toFixed(2)} PHP`;
     } catch (error) {
         console.error('Error fetching monthly product data:', error);
+
+        // Handle the case where an error occurs during data fetching
+        const container = document.getElementById('product-item-container');
+        container.innerHTML = '<p>An error occurred while fetching sales data. Please try again later.</p>';
+        document.getElementById('totalAmount').textContent = `Total Monthly Product Sales: ₱0.00 PHP`;
     }
 }
 

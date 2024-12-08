@@ -6,14 +6,17 @@ require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Get the POST data (month)
+// Get the JSON input
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 
 // Extract selected month
-$month = isset($data['month']) ? $data['month'] : date('F'); 
+$month = isset($data['month']) ? $data['month'] : date('F');
+$year = date('Y');
 
-// Query to fetch product and transaction data for the selected month
+// Convert month to its corresponding numeric value (e.g., "January" -> 1)
+$monthNumber = date('m', strtotime($month));
+
 $sql = "
     SELECT 
         p.productID,
@@ -23,13 +26,16 @@ $sql = "
         (SUM(t.sold) * p.prod_price) AS total_price
     FROM product p
     LEFT JOIN transaction t ON p.productID = t.productID
-    WHERE MONTH(t.sold_date) = MONTH(CURDATE())
-      AND YEAR(t.sold_date) = YEAR(CURDATE())
+    WHERE MONTH(t.sold_date) = ? AND YEAR(t.sold_date) = ?
     GROUP BY p.productID, p.prod_name, p.prod_price, p.image_path
 ";
 
 $stmt = $conn->prepare($sql);
+
+// Bind parameters to the query (month and year)
+$stmt->bind_param("ii", $monthNumber, $year);
 $stmt->execute();
+
 $result = $stmt->get_result();
 
 $data = [];
@@ -45,4 +51,5 @@ echo json_encode($data);
 
 $conn->close();
 ?>
+
 
