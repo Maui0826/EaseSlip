@@ -144,7 +144,7 @@ tabs.forEach(tab => {
     const tabName = tab.querySelector('span').textContent;
 
     if (tab.id === 'logout-tab') {
-      mainSection.innerHTML = `<h2>Goodbye!</h2><p>You have successfully logged out.</p>`;
+      window.location.href = '/DashboardMenu/logout.php';
     } else if (tab.id === 'dashboard-tab') {
       window.location.href = '/DashboardMenu/dashboardM.html';
     } else if (tab.id === 'inventory-tab') {
