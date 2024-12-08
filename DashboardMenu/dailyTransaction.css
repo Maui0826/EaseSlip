@@ -1,40 +1,118 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+/* General styling for h1 and date input row */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8d7da; /* Light pink background */
+  padding: 10px 0;
+  margin: 0;
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  padding: 15px;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin: 0; /* Remove margin */
 }
 
 .filter {
-    margin-bottom: 20px;
-    text-align: center;
+  display: flex;
+  align-items: center;
 }
 
+.filter label {
+  font-size: 1rem;
+  color: #555;
+  margin-right: 10px; /* Space between label and input */
+}
+
+.filter input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.filter input[type="date"]:focus {
+  border-color: #007BFF;
+}
+
+/* Table styles */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
 }
 
-table, th, td {
-    border: 1px solid #ccc;
+table thead {
+  background-color: #007BFF;
+  color: white;
 }
 
-th, td {
-    padding: 10px;
-    text-align: center;
+table thead th {
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
 }
 
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:hover {
+  background-color: #f1f9ff;
+}
+
+table th, table td {
+  padding: 10px 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+/* Buttons for table actions */
 button.delete-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
 }
 
 button.delete-btn:hover {
-    background-color: darkred;
+  background-color: #a71d2a;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-container {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start;
+  }
+
+  .filter {
+    margin-top: 10px;
+  }
 }

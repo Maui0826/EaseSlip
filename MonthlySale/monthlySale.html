@@ -17,7 +17,7 @@
       <ul>
         <li  id="dashboard-tab">
           <i class="fas fa-chart-line"></i>
-          <span>Dashboard</span>
+          <span><a href="/DashboardMenu/dashboardM.html"></a>Dashboard</a></span>
         </li>
         <li id="inventory-tab">
           <i class="fas fa-warehouse"></i>
@@ -61,45 +61,46 @@
     <!-- Main Content -->
     <main class="main-content">
       <div class="main-section" id="main-section">
-        <h1>Monthly SALE DASHBOARD</h1>
-        
-        <div class="MonthlySale-container">
-          <!-- Monthly Calendar Section -->
-          <div class="monthly-calendar">
-            <label for="month-select">Month:</label>
-            <select id="month-select">
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
-            </select>
-            
-            <label for="year-select">Year:</label>
-            <select id="year-select">
-              <!-- Years will be dynamically populated -->
-            </select>
+          <div class="header-container">
+              <h1>Monthly SALE DASHBOARD</h1>
+              <div class="monthly-date">
+                  <label for="month-select">Month:</label>
+                  <select id="month-select">
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
+                  </select>
+                  
+                  <label for="year-select">Year:</label>
+                  <select id="year-select">
+                      <!-- Years will be dynamically populated -->
+                  </select>
+              </div>
           </div>
-
-          <!-- Monthly Sale Chart Section -->
-          <div class="monthlySale-chart">
-            <canvas id="salesChart"></canvas>
+  
+          <div class="MonthlySale-container">
+              <!-- Monthly Sale Chart Section -->
+              <div class="monthlySale-chart">
+                  <canvas id="salesChart"></canvas>
+              </div>
+  
+              <!-- Monthly Sale Total Section -->
+              <div class="monthlySaleTotal">
+                  <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
+              </div>
           </div>
-
-          <!-- Monthly Sale Total Section -->
-          <div class="monthlySaleTotal">
-            <h3 id="totalmonthlySale">Total Monthly Sales: ₱0</h3>
-          </div>
-        </div>
       </div>
-    </main>
+  </main>
+  
   </div>
 
   <script src="/DashboardMenu/dashboardM.js"></script>

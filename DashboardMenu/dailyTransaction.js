@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const dateSelect = document.getElementById("date-select");
     const transactionTable = document.getElementById("transaction-table").querySelector("tbody");
 
+    // Set the current date as the default value
+    const currentDate = new Date().toISOString().split('T')[0];
+    dateSelect.value = currentDate;
+
     // Fetch and display transactions for the selected date
     async function fetchTransactions() {
         const date = dateSelect.value;
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data.forEach(transaction => {
                 const row = document.createElement("tr");
 
-                row.innerHTML = `
+                row.innerHTML = `  
                     <td>${transaction.transactionID}</td>
                     <td>${transaction.prod_name}</td>
                     <td>₱${transaction.prod_price.toFixed(2)}</td>
@@ -76,4 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch transactions when the date changes
     dateSelect.addEventListener("change", fetchTransactions);
+
+    // Fetch transactions on page load with the current date
+    fetchTransactions();
 });

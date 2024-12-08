@@ -1,61 +1,118 @@
-.mps-container {
-  padding: 0;
-  display: inline;
-  align-items: center;
-  background-color: #f5f5f5;
-  width: 100%;
+.main-section {
+  width: 95%;
+  border-radius: 16px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  justify-content: space-between;
+  align-items: center; /* Center-align content horizontally */
+  text-align: center;
+  font-size: 1.2rem;
+  box-sizing: border-box; /* Ensure padding doesn't increase size */
+  overflow: hidden; /* Hide any content overflowing from the section */
 }
 
-.total-mps {
-  bottom: 0;
-  text-align: center;
+/* Header container for title and date */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Space between title and date */
+  align-items: center; /* Align items vertically */
   width: 100%;
-  position: sticky;
-  background-color: #ff93ac;
-  padding: 20px;
+  padding: 18px;
+  background-color: #ffb6c1; /* Match the theme */
+  border-radius: 16px 16px 0 0; /* Rounded corners at the top */
+  box-sizing: border-box;
 }
 
-h1 {
-  background-color: #ff93ac;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
+.header-container h1 {
+  font-size: 1.5em; /* Bold and larger font size */
   margin: 0;
-  font-size: 2em;
-  border-radius: 5px 5px 0 0;
-  width: 100%;
 }
 
 .daily-date {
-  padding: 20px;
-  text-align: center;
-  font-size: 1.5em; /* Default font size */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between label and input */
 }
 
+.daily-date input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px; /* Rounded corners for a modern look */
+  font-size: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.daily-date input[type="date"]:focus {
+  border-color: #fff; /* Highlight border on focus */
+}
+
+/* Container for product items */
 .product-item-container {
   display: flex;
-  flex-wrap: wrap; /* This ensures the items wrap into new rows when necessary */
-  justify-content: space-around; /* This evenly spaces items across each row */
+  flex-wrap: wrap;
+  justify-content: space-around;
   padding: 20px;
+  gap: 20px; /* Spacing between items */
   width: 100%;
 }
 
+/* Product items */
 .product-item {
   background-color: #fff;
   border: 2px solid #ddd;
   margin: 10px;
-  border-radius: 8px;
+  border-radius: 12px; /* Rounded edges */
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
   text-align: center;
   padding: 15px;
-  box-sizing: border-box; /* Ensures padding is included in the width calculation */
+  width: 300px; /* Fixed width for consistent sizing */
 }
 
 .product-item img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover; /* Ensures the image fits within the dimensions while maintaining aspect ratio */
-  margin-bottom: 10px; /* Optional: Adds spacing below the image */
-  border-radius: 5px; /* Optional: Adds rounded corners to the image */
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Rounded corners for the image */
+  margin-bottom: 10px;
+}
+
+/* Total Sales Section */
+.total-mps {
+  background-color: #ffb6c1;
+  font-size: 1.5rem;
+  padding: 20px;
+  padding-left: 250px;
+  padding-right: 250px;
+  text-align: center;
+  width: 100%; /* Ensures it spans the full width */
+  border-radius: 0 0 16px 16px; /* Rounded corners at the bottom */
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1); /* Shadow to separate from above content */
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-section {
+    font-size: 1rem;
+  }
+
+  .product-item {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .header-container {
+    flex-direction: column; /* Stack title and date vertically */
+    align-items: center; /* Center-align content */
+  }
+
+  .daily-date {
+    margin-top: 10px; /* Add space between title and date */
+  }
+
+  .header-container h1 {
+    font-size: 1.8rem;
+  }
 }

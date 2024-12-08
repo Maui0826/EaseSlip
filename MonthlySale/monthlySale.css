@@ -1,94 +1,93 @@
+/* General Body Styling */
 body {
-    overflow-x: hidden;  /* Enable horizontal scrolling */
-    white-space: nowrap;  /* Prevent text wrapping */
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column; /* Ensure content stretches from top to bottom */
+    min-height: 100vh; /* Ensure the body takes the full height of the viewport */
 }
 
+/* Header Container */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space between h1 and the date selection */
+    align-items: center;
+    background-color: #ffb6c1; /* Pink background */
+    padding: 17px;
+    width: 100%;
+    border-radius:16px 16px 0 0 ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Title */
+.header-container h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+/* Monthly Date Container */
+.monthly-date {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds space between label and select */
+}
+
+/* Monthly Date Label */
+.monthly-date label {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+/* Month Selection Dropdown */
+.monthly-date select {
+    padding: 8px 12px;
+    border-radius: 15px; /* Rounded corners */
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 0.8rem; /* Smaller font size */
+    color: #333; /* Dark text for readability */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+
+/* Monthly Sale Container */
 .MonthlySale-container {
     display: flex;
-    flex-direction: column; /* Arrange items in a column */
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding: 10px;
-    width: 100%;
-    margin-top: 25px;
-}
-
-h1 {
-    top: 10%;
-    text-align: center;
-    width: 100%;
-    position: absolute;
-    font-size: 2em; /* Default font size */
-}
-
-.monthly-calendar,
-.monthlySale-chart,
-.monthlySaleTotal {
-    display: flex;
-    flex-direction: column; /* Stack content vertically */
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-.monthly-calendar label,
-.monthlySaleTotal h3 {
-    margin-bottom: 5px; /* Space between label and dropdown */
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.monthly-calendar select {
-    width: 150px; /* Consistent width for dropdowns */
-    padding: 8px;
-    font-size: 0.9rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-}
-
-.monthlySale-chart canvas {
-    width: 100%;
-    height: auto;
-    max-width: 1200px; /* Set max width for chart */
-    margin-bottom: 15px;
-}
-
-.monthlySaleTotal h3 {
-    font-size: 1.2rem;
-    font-weight: normal;
-}
-
-.MonthlySale-container > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
     width: 100%;
 }
 
+/* Monthly Sale Chart */
 .monthlySale-chart {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 30px;
     border: 1px solid #000;
     width: 100%;
     background-color: #dfdfdf;
-    height: 45vh;
+    height: 70.8vh;
     box-sizing: border-box;
 }
 
-.monthlySaleTotal h3 {
-    padding: 10px;
-    text-align: center;
+/* Monthly Sale Total Section */
+.monthlySaleTotal {
+    display: flex;
+    justify-content: space-around; /* Ensures space between items in the section */
+    align-items: center;
     width: 100%;
-    font-size: 3em;
+    background-color: #ffb6c1; /* Pink background */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+
+    padding: 15px 0; /* Padding to make it look spacious */
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: auto; /* Pushes it to the bottom */
 }
 
 /* Ensure canvas is responsive */
@@ -100,10 +99,10 @@ canvas {
 
 /* Media Queries */
 @media (max-width: 1024px) {
-    h1 {
+    .header-container h1 {
         font-size: 1.8em;
     }
-    .monthly-calendar {
+    .monthly-date {
         font-size: 1.3em;
     }
     .monthlySaleTotal h3 {
@@ -118,10 +117,10 @@ canvas {
 }
 
 @media (max-width: 768px) {
-    h1 {
+    .header-container h1 {
         font-size: 1.5em;
     }
-    .monthly-calendar {
+    .monthly-date {
         font-size: 1.1em;
     }
     .monthlySaleTotal h3 {
@@ -137,10 +136,10 @@ canvas {
 }
 
 @media (max-width: 480px) {
-    h1 {
+    .header-container h1 {
         font-size: 1.2em;
     }
-    .monthly-calendar {
+    .monthly-date {
         font-size: 1em;
     }
     .monthlySaleTotal h3 {

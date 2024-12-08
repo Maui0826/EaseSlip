@@ -22,7 +22,7 @@ async function fetchProductData(date) {
         productItem.classList.add('product-item');
   
         productItem.innerHTML = `
-          <img src="/POS/${product.image_path}" alt="${product.prod_name}">
+          <img src="/INVENTORY/${product.image_path}" alt="${product.prod_name}">
           <div class="product-details">
             <h2 class="item" id="item-${index}">${product.prod_name}</h2>
             <p>Quantity Sold: <span id="quantity-${index}">${product.total_sold}</span></p>

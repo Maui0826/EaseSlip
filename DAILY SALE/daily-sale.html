@@ -17,7 +17,7 @@
         <ul>
           <li  id="dashboard-tab">
             <i class="fas fa-chart-line"></i>
-            <span>Dashboard</span>
+            <span><a href="/DashboardMenu/dashboardM.html"></a>Dashboard</a></span>
           </li>
           <li id="inventory-tab">
             <i class="fas fa-warehouse"></i>
@@ -60,22 +60,25 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="main-section" id="main-section">
-          <h1>Daily Sales Dashboard</h1>
+      <div class="main-section" id="main-section">
+          <header class="header-container">
+              <h1>Daily Sales Dashboard</h1>
+              <div class="daily-date">
+                  <label for="date-select">Date:</label>
+                  <input type="date" id="date-select">
+              </div>
+          </header>
           <div class="dailySale-container">
-            <div class="daily-date">
-              <label for="date-select">Date:</label>
-              <input type="date" id="date-select">
-            </div>
-            <div class="dailySale-chart">
-              <canvas id="dailySalesChart"></canvas>
-            </div>
-            <div class="dailySaleTotal">
-              <h3 id="totalDailySale">Total Daily Sales: ₱0</h3>
-            </div>
+              <div class="dailySale-chart">
+                  <canvas id="dailySalesChart"></canvas>
+              </div>
+              <div class="dailySaleTotal">
+                  <h3 id="totalDailySale">Total Daily Sales: ₱0</h3>
+              </div>
           </div>
-        </div>
-      </main>
+      </div>
+  </main>
+  
   </div>
   <script src="dailySale.js"></script>
   <script src="/DashboardMenu/dashboardM.js"></script>
