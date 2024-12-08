@@ -65,7 +65,7 @@ function fetchItems(category = null) {
 
           const card = $(` 
               <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
-                  <img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/uploads/fallback.jpg';">
+                  <img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/INVENTORY/uploads/fallback.jpg';">
                   <h4>${item.prod_name}</h4>
                   <p>Price: ${item.prod_price} PHP</p>
                   <p>Stock: ${item.prod_quantity}</p>
@@ -99,7 +99,7 @@ $('#update-item-button').click(function () {
     
     const data = {
       productID,   
-      stock        
+      prod_quantity       
     };
     
     
@@ -126,7 +126,7 @@ function showItemDetails(item) {
   $('#item-category').text(item.categoryName);
   $('#item-name').text(item.prod_name); 
   $('#item-price').val(item.prod_price);
-  $('#item-stock').val(item.prod_quantity);
+  $('#item-stock').val(0);
 }
 
 

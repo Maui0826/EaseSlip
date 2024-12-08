@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: /DashboardMenu/dashboardM.html");
                 exit;
             } else {
-                $_SESSION['username'] = $username;
                 header("Location: /POS/billing.html");
                 exit;
             }
