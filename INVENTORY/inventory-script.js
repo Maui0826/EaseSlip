@@ -88,10 +88,11 @@ function fetchItems(category = null) {
 $('#update-item-button').click(function () {
     const productID = $('#item-details-container').data('item-id');  
     const price = $('#item-price').val();
-    const stock = $('#item-stock').val();
+    const prod_quantity = $('#item-stock').val();
+    const action = 'increase';
 
     
-    if (!stock) {
+    if (!prod_quantity) {
         alert('Please ensure that the stock quantity is filled out.');
         return;
     }
@@ -99,7 +100,8 @@ $('#update-item-button').click(function () {
     
     const data = {
       productID,   
-      prod_quantity       
+      prod_quantity,
+      action    
     };
     
     
@@ -139,7 +141,7 @@ function updateItem(itemId) {
         itemId: itemId  
     };
   
-    $.post('update_item.php', updatedData, function (response) {
+    $.post('/POS/update_item.php', updatedData, function (response) {
        const responseData = JSON.parse(response);  
        alert(responseData.message);  
        fetchItems(); 
