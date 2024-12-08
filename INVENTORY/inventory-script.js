@@ -12,7 +12,7 @@ function closeSidebar() {
 }
 
 function fetchCategories() {
-  $.get('/POS/get_categories.php', function (data) {
+  $.get('get_categories.php', function (data) {
       const response = JSON.parse(data);
       const username = response.username;  
       const categories = response.categories;  
@@ -56,16 +56,16 @@ $('.search-bar').on('input', function() {
 
 // Fetch items and render the cards
 function fetchItems(category = null) {
-  $.get('/POS/get_items.php', { category }, function (data) {
+  $.get('get_items.php', { category }, function (data) {
       const items = JSON.parse(data);
       const itemsDiv = $('.items').empty();
 
       items.forEach(item => {
-          console.log("Image Path:", `/POS/${item.image_path}`); 
+          console.log("Image Path:", `/INVENTORY/${item.image_path}`); 
 
           const card = $(` 
               <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
-                  <img src="/POS/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/uploads/fallback.jpg';">
+                  <img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}" onerror="this.src='/POS/uploads/fallback.jpg';">
                   <h4>${item.prod_name}</h4>
                   <p>Price: ${item.prod_price} PHP</p>
                   <p>Stock: ${item.prod_quantity}</p>
@@ -109,7 +109,7 @@ $('#update-item-button').click(function () {
 
     console.log('Data sent:', data);  
 
-    $.post('update_stock.php', data, function (response) {
+    $.post('/POS/update_stock.php', data, function (response) {
         alert(response);
         fetchItems(); 
     }).fail(function () {
@@ -122,7 +122,7 @@ $('#update-item-button').click(function () {
 
 function showItemDetails(item) {
   $('#item-details-container').data('item-id', item.productID);
-  $('#item-image').attr('src', `/POS/${item.image_path}`);
+  $('#item-image').attr('src', `/INVENTORY/${item.image_path}`);
   $('#item-category').text(item.categoryName);
   $('#item-name').text(item.prod_name); 
   $('#item-price').val(item.prod_price);

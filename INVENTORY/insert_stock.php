@@ -21,22 +21,13 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     // Move uploaded file
     if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
         // Check if category already exists
-        $checkQuery = "SELECT categoryID FROM category WHERE categoryName = '$category'";
+        $checkQuery = "SELECT categoryID FROM category WHERE categoryID = '$category'";
         $result = $conn->query($checkQuery);
 
         if ($result->num_rows > 0) {
             // Category exists, fetch categoryID
             $row = $result->fetch_assoc();
             $categoryID = $row['categoryID'];
-        } else {
-            // Insert new category
-            $insertCategoryQuery = "INSERT INTO category (categoryName) VALUES ('$category')";
-            if ($conn->query($insertCategoryQuery) === TRUE) {
-                $categoryID = $conn->insert_id; // Get the newly inserted categoryID
-            } else {
-                echo "Error inserting category: " . $conn->error;
-                exit;
-            }
         }
 
         // Insert product with categoryID
@@ -64,4 +55,5 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
 
 $conn->close();
 ?>
+
 

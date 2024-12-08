@@ -12,7 +12,7 @@ function toggleSidebar() {
   }
 
   function fetchCategories() {
-    $.get('get_categories.php', function (data) {
+    $.get('/INVENTORY/get_categories.php', function (data) {
         const response = JSON.parse(data);
         const username = response.username;  // Get the username from the response
         const categories = response.categories;  // Get the categories from the response
@@ -55,7 +55,7 @@ $('.search-bar').on('input', function() {
 
 // Fetch items and render the cards
 function fetchItems(category = null) {
-    $.get('get_items.php', { category }, function(data) {
+    $.get('/INVENTORY/get_items.php', { category }, function(data) {
         const items = JSON.parse(data); // Parse the JSON response
         const itemsDiv = $('.items').empty(); // Clear any existing items
         
@@ -63,7 +63,7 @@ function fetchItems(category = null) {
         items.forEach(item => {
             const card = $(`
                 <div class="card" data-id="${item.id}" data-name="${item.prod_name.toLowerCase()}">
-                    <img src="${item.image_path}" alt="${item.prod_name}">
+                    <img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}">
                     <h4>${item.prod_name}</h4>
                     <p>Price: ${item.prod_price} PHP</p>
                     <p>Stock: ${item.prod_quantity}</p>
@@ -110,7 +110,7 @@ function addToBill(item) {
     } else {
         const row = $(` 
             <tr data-id="${item.productID}">
-                <td><img src="${item.image_path}" alt="${item.prod_name}"></td>
+                <td><img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}"></td>
                 <td>${item.prod_name}</td>
                 <td class="qty-actions">
                     <button class="decrease">-</button>
@@ -168,7 +168,7 @@ function renderItems(items) {
     items.forEach(item => {
         const card = $(`
             <div class="card" data-name="${item.prod_name.toLowerCase()}">
-                <img src="${item.image_path}" alt="${item.prod_name}">
+                <img src="/INVENTORY/${item.image_path}" alt="${item.prod_name}">
                 <h4>${item.prod_name}</h4>
                 <p>Price: ${item.prod_price} PHP</p>
                 <p>Stock: ${item.prod_quantity}</p>

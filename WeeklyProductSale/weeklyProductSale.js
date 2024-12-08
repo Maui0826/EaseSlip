@@ -7,23 +7,24 @@ async function fetchWeeklyProductData(month, week) {
         });
 
         const products = await response.json();
-        console.log('Fetched products:', products);
+        console.log('Fetched products:', products); // Check the raw response
 
         const container = document.getElementById('product-item-container');
-        container.innerHTML = '';  // Clear any existing content
+        container.innerHTML = ''; // Clear previous content
 
         let totalSales = 0;
 
-        products.forEach((product, index) => {
+        // Iterate through the product data and display it
+        products.forEach((product) => {
             const productItem = document.createElement('div');
             productItem.classList.add('product-item');
 
             productItem.innerHTML = `
                 <img src="/POS/${product.image_path}" alt="${product.prod_name}">
                 <div class="product-details">
-                    <h2 class="item">${product.prod_name}</h2>
-                    <p>Quantity Sold: <span>${product.total_sold}</span></p>
-                    <p>Total Sales: <span>${product.total_price} PHP</span></p>
+                    <h2>${product.prod_name}</h2>
+                    <p>Quantity Sold: ${product.total_sold}</p>
+                    <p>Total Sales: ₱${product.total_price.toFixed(2)}</p>
                 </div>
             `;
 
@@ -31,25 +32,24 @@ async function fetchWeeklyProductData(month, week) {
             totalSales += parseFloat(product.total_price);
         });
 
-        document.getElementById('totalAmount').textContent = `Total Weekly Product Sales: ${totalSales.toFixed(2)} PHP`;
-
+        // Display the total sales for the week
+        document.getElementById('totalAmount').textContent =
+            `Total Weekly Product Sales: ₱${totalSales.toFixed(2)}`;
     } catch (error) {
         console.error('Failed to fetch weekly product data:', error);
     }
 }
 
-// Event listener for dropdown changes
+// Event listeners for dropdowns
 document.getElementById('month-select').addEventListener('change', updateData);
 document.getElementById('week-range').addEventListener('change', updateData);
 
 function updateData() {
     const selectedMonth = document.getElementById('month-select').value;
-    const selectedWeek = document.getElementById('week-range').value;
+    const selectedWeek = parseInt(document.getElementById('week-range').value);
 
     fetchWeeklyProductData(selectedMonth, selectedWeek);
 }
 
-// Load product data when page loads
+// Initial load
 document.addEventListener('DOMContentLoaded', updateData);
-
-

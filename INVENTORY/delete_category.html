@@ -116,14 +116,13 @@
         <h2>Stock List</h2>
         <ul class="stock-list" id="stock-list">
         </ul>
-        <button type="button" class="back-button" onclick="window.location.href='billing.html'">Go Back</button>
-
+        <button type="button" class="back-button" onclick="window.location.href='/INVENTORY/inventory.html'">Go Back</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function loadStock() {
-            $.get('fetch_stock.php', function(data) {
+            $.get('fetch_category.php', function(data) {
                 const items = JSON.parse(data);
                 const stockList = document.getElementById('stock-list');
                 stockList.innerHTML = ''; 
@@ -132,28 +131,29 @@
                     listItem.classList.add('stock-item');
                     listItem.innerHTML = `
                         <div class="stock-info">
-                            <span class="category">${item.categoryName}</span> - ${item.prod_name}
+                            <span class="category">${item.categoryName}</span>
                         </div>
-                        <button class="delete-btn" onclick="deleteItem(${item.productID})">Delete</button>
+                        <button class="delete-btn" onclick="deleteItem(${item.categoryID})">Delete</button>
                     `;
+                    console.log(item.categoryID);
                     stockList.appendChild(listItem);
                 });
             });
         }
 
-        function deleteItem(itemId) {
-            const confirmDelete = confirm("Are you sure you want to delete this item?");
+        function deleteItem(categoryId) {
+            const confirmDelete = confirm("Are you sure you want to delete this category?");
             if (confirmDelete) {
                 $.ajax({
-                    url: 'delete_item.php',
+                    url: 'delete_category.php',
                     type: 'POST',
-                    data: { id: itemId },
+                    data: { id: categoryId },
                     success: function(response) {
                         alert(response);
-                        loadStock();
+                        loadStock();  // Reload stock list after deletion
                     },
                     error: function() {
-                        alert('An error occurred while deleting the item.');
+                        alert('An error occurred while deleting the category.');
                     }
                 });
             }
