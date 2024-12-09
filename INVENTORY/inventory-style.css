@@ -174,7 +174,6 @@ ul#sidebar-list {
 
 .section {
     flex: 1;
-    padding: 10px;
     overflow-y: auto;
     border-right: 1px solid var(--secondary);
 }
@@ -251,7 +250,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: flex-start;
+  justify-content: center;
   padding-top: 20px;
 }
 

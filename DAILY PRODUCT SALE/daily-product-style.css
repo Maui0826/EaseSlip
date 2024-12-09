@@ -78,7 +78,7 @@
 
 .product-item img {
   width: 100%;
-  height: auto;
+  height: 250px;
   border-radius: 8px; /* Rounded corners for the image */
   margin-bottom: 10px;
 }
