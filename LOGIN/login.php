@@ -19,25 +19,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-
+    
         if (password_verify($password, $user['password'])) {
+            session_start(); // Ensure sessions are started
+    
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username_id'] = $user['username'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $username === 'admin' ? 'admin' : 'user'; // Pass role to the session
-            
-            if ($username === 'admin') {
+            $_SESSION['role'] = $user['username'] === 'admin' ? 'admin' : 'user';
+    
+            if ($_SESSION['role'] === 'admin') {
                 header("Location: /DashboardMenu/dashboardM.html");
             } else {
                 header("Location: /POS/billing.html");
             }
-            exit;
+            exit();
         } else {
-            echo "Incorrect password. Please try again.";
+            echo "<script>alert('Incorrect password. Please try again.'); window.location.href = '/LOGIN/login.html';</script>";
         }
     } else {
-        echo "No account found with the provided username.";
+        echo "<script>alert('User not found.'); window.location.href = '/LOGIN/login.html';</script>";
     }
+    exit();
+    
 
     $stmt->close();
 }
