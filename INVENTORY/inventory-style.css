@@ -45,7 +45,7 @@ header {
   padding-left: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--text, #fff); 
+  color: black; 
 }
 
 .header-left, .header-center, .header-right {
@@ -519,7 +519,7 @@ h2 {
 #item-details-container span,
 #item-details-container input {
   font-size: 1.2rem;
-  color: var(--neutral-light);
+  color: black;
 }
 
 #item-category,
