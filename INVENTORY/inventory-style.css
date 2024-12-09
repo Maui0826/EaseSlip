@@ -98,49 +98,80 @@ header {
 }
 
 .sidebar {
-  width: 0;
   height: 100%;
+  width: 0;
   position: fixed;
-  top: 0;
+  z-index: 1000;
+  top: 58px;
   left: 0;
-  background-color: var(--primary);
+  background-color: var(--button);
   overflow-x: hidden;
-  padding-top: 60px;
   transition: 0.5s;
+  padding-top: 60px;
 }
 
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar ul li {
-  padding: 10px 20px;
-  text-align: center;
-}
-
-.sidebar ul li a {
+/* Sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
   text-decoration: none;
-  color: white;
+  font-size: 25px;
+  color: var(--text);
   display: block;
-  padding: 10px;
-  font-size: 18px;
+  transition: color 0.3s, padding-left 0.3s;
 }
 
-.sidebar ul li a:hover {
-  background-color: var(--background);
-  color: black;
+/* Hover effect for sidebar links */
+.sidebar a:hover {
+  color: var(--hover-color);
+  padding-left: 40px; /* Add space when hovered */
+  border-bottom: 2px solid var(--hover-border); /* Underline on hover */
+  transition: padding-left 0.3s, border-bottom 0.3s;
 }
 
+/* Specific styling for logout */
+.sidebar a.logout {
+  color: var(--logout-color); /* Red-ish color for logout */
+}
+
+.sidebar a.logout:hover {
+  color: var(--logout-hover-color); /* Change to white on hover */
+  border-bottom: 2px solid var(--logout-color); /* Underline with red color */
+}
+
+/* Close button */
 .close-btn {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
-  text-decoration: none;
-  color: white;
+  margin-left: 50px;
+  color: var(--hover-color);
+  background-color: transparent;
+  border: none;
 }
+
+/* Sidebar menu items */
+ul#sidebar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* When the sidebar is open */
+.sidebar.open {
+  width: 250px;
+}
+
+/* Add smooth transition to the sidebar when opening/closing */
+.sidebar {
+  transition: width 0.5s ease;
+}
+
+/* Sidebar active state */
+.sidebar.open a {
+  color: var(--hover-color);
+}
+
 .section {
     flex: 1;
     padding: 10px;

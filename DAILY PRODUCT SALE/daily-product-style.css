@@ -24,6 +24,8 @@
   border-radius: 16px 16px 0 0; /* Rounded corners at the top */
   box-sizing: border-box;
   position: sticky;
+  z-index: 2;
+
 }
 
 .header-container h1 {

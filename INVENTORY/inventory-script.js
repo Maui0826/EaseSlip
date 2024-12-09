@@ -1,14 +1,74 @@
 function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  if (sidebar.style.width === "250px") {
-      sidebar.style.width = "0";
-  } else {
-      sidebar.style.width = "250px";
-  }
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open'); // Toggle the sidebar open and close
+
+    // Fetch username from the server and update the sidebar
+    fetchUsername();
 }
 
+// Function to close the sidebar
 function closeSidebar() {
-  document.getElementById("sidebar").style.width = "0";
+    const sidebar = document.getElementById('sidebar');
+    sidebar.style.width = '0';  // Set sidebar width to 0 to hide it
+}
+
+// Fetch username from the server using PHP
+async function fetchUsername() {
+    try {
+        // Use fetch to get the username from the PHP script
+        const response = await fetch('./fetch-role.php');  // Adjust path as needed
+        const username = await response.text();  // Expecting the username to be sent as plain text
+
+        // Update the sidebar based on the username
+        updateSidebar(username);
+    } catch (error) {
+        console.error('Error fetching username:', error);
+    }
+}
+
+// Function to update sidebar based on account username
+function updateSidebar(username) {
+    const sidebarList = document.getElementById('sidebar-list');
+    sidebarList.innerHTML = ''; // Clear any existing items
+
+    if (username === 'admin') {
+        // If username is admin, show full list
+        const menuItems = [
+            { name: 'DASHBOARD', link: '/DashboardMenu/dashboardM.html' },
+            { name: 'POS', link: '/POS/billing.html' },
+            { name: 'INVENTORY', link: '/INVENTORY/inventory.html' },
+            { name: 'LOGOUT', link: '/DashboardMenu/logout.php', isLogout: true }
+        ];
+        menuItems.forEach(item => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.textContent = item.name;
+            link.href = item.link;
+            if (item.isLogout) {
+                link.classList.add('logout');  // Add special class for logout
+            }
+            listItem.appendChild(link);
+            sidebarList.appendChild(listItem);
+        });
+    } else if (username !== '') {
+        // If username is not admin, show only LOGOUT
+        const logoutItem = document.createElement('li');
+        const logoutLink = document.createElement('a');
+        logoutLink.textContent = 'LOGOUT';
+        logoutLink.href = '/DashboardMenu/logout.php';
+        logoutLink.classList.add('logout');  // Add special class for logout
+        logoutItem.appendChild(logoutLink);
+        sidebarList.appendChild(logoutItem);
+    } else {
+        // If no username is set (e.g., not logged in), show only LOGOUT
+        const logoutItem = document.createElement('li');
+        const logoutLink = document.createElement('a');
+        logoutLink.textContent = 'LOGOUT';
+        logoutLink.href = '/DashboardMenu/logout.php';
+        logoutLink.classList.add('logout');  // Add special class for logout
+        logoutItem.appendChild(logoutLink);
+        sidebarList.appendChild(logoutItem);
+    }
 }
 
 function fetchCategories() {
