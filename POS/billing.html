@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="billing_styles.css">
 </head>
 <body>
-    <?php include('/fetch-role.php'); ?>
     <header>
         <div class="header-left">
             <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
@@ -31,7 +30,7 @@
         <div class="section categories">
             <h1 id="username"></h1>
             <h2>Categories</h2>
-            <button id="all-categories-button">All Categories</button>
+            <button id="all-categories-button" onclick="location.reload();">All Categories</button>
         </div>
         <div class="section items">
             <h2>Items</h2>
@@ -49,6 +48,7 @@
             <div id="amount-paid">
                 <label for="customer-payment">Paid Amount:</label>
                 <input type="number" id="customer-payment" placeholder="₱">
+                <p id="change"></p>
             </div>
             <button id="pay-button" onclick="printReceipt()">Confirm Payment</button>
             <div id="invoice-info">

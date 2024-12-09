@@ -310,7 +310,6 @@ function updateTransaction(productID, prod_quantity) {
     });
 }
 
-
 function printReceipt() {
     const billBody = $('#bill-body');
     const rows = billBody.find('tr');
