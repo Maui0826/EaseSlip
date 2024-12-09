@@ -104,7 +104,7 @@ header {
   z-index: 1000;
   top: 58px;
   left: 0;
-  background-color: var(--button);
+  background-color: var(--primary);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -126,6 +126,7 @@ header {
   padding-left: 40px; /* Add space when hovered */
   border-bottom: 2px solid var(--hover-border); /* Underline on hover */
   transition: padding-left 0.3s, border-bottom 0.3s;
+  background-color: var(--button);
 }
 
 /* Specific styling for logout */
