@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const weekSelect = document.getElementById("week-range");
     const yearSelect = document.getElementById("year-select");
     const totalWeeklySaleElement = document.getElementById("totalWeeklySale");
-
     monthSelect.addEventListener("change", fetchAndRenderData);
     weekSelect.addEventListener("change", fetchAndRenderData);
     yearSelect.addEventListener("change", fetchAndRenderData);
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         weekSelect.selectedIndex = currentWeek - 1;
         yearSelect.value = currentYear;
     }
-    
+
     setDefaultDate(); // Set default values on page load
     fetchAndRenderData(); // Fetch initial data based on default values
 
@@ -126,8 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Populate data for the 7 days of the week
         for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
-            const day = date.getDate(); // Day of the month
-            const formattedDate = date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+            const day = date.getUTCDate(); // Use UTC date to avoid timezone issues
+            const formattedDate = new Date(date).toISOString().split("T")[0]; // Format date as YYYY-MM-DD
             labels.push(formattedDate);
 
             let dailyTotal = 0;
@@ -199,3 +198,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
