@@ -7,9 +7,21 @@
   <title>Loading Screen</title>
 </head>
 <body>
-  <div id="loading-screen">
-    <img src="/assets/LOGO.png" alt="Logo">
-    <p>Loading<span class="dots">...</span></p>
+  <div class="loading-container">
+    <h1>WELCOME</h1>
+    <div class="logo-container">
+      <div class="rotating-ring">
+        <div class="rotating-ring">
+          <div class="rotating-ring">
+          </div>
+        </div>
+      </div>
+      <!-- Use relative path -->
+      <img src="assets/LOGO.png" alt="Logo" class="logo-image">
+    </div>
+    <div class="loading-message">
+      Loading...
+    </div>
   </div>
   <script src="loadingScreen.js"></script>
 </body>
