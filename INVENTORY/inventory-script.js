@@ -147,29 +147,28 @@ function fetchItems(category = null) {
 
 $('#update-item-button').click(function () {
     const productID = $('#item-details-container').data('item-id');  
-    const price = $('#item-price').val();
+    const prod_price = parseFloat($('#item-price').val());  
     const prod_quantity = $('#item-stock').val();
     const action = 'increase';
 
-    
     if (!prod_quantity) {
         alert('Please ensure that the stock quantity is filled out.');
         return;
     }
 
-    
-    const data = {
-      productID,   
-      prod_quantity,
-      action    
-    };
-    
-    
-    if (price) {
-        data.price = price;
+    if (isNaN(prod_price) || prod_price < 0) {
+        alert('Please enter a valid positive price.');
+        return;
     }
 
-    console.log('Data sent:', data);  
+    const data = {
+        productID,
+        prod_quantity,
+        action,
+        price: prod_price
+    };
+
+    console.log('Data sent:', data);
 
     $.post('/POS/update_stock.php', data, function (response) {
         alert(response);
@@ -178,8 +177,6 @@ $('#update-item-button').click(function () {
         alert('Failed to update the item.');
     });
 });
-
-
 
 
 function showItemDetails(item) {
