@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit;
         } else {
-            echo "Incorrect password. Please try again.";
+            echo "<script>alert('Incorrect Password.'); window.location.href = '/LOGIN/login.html';</script>";
         }
     } else {
         echo "<script>alert('User not found.'); window.location.href = '/LOGIN/login.html';</script>";
