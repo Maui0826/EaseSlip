@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (empty($username) || empty($password)) {
-        echo "Please fill in both fields.";
+        echo "<script>alert('Please fill in both fields.'); window.location.href = '/LOGIN/login.html';</script>";
         exit;
     }
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Incorrect password. Please try again.";
         }
     } else {
-        echo "No account found with the provided username.";
+        echo "<script>alert('User not found.'); window.location.href = '/LOGIN/login.html';</script>";
     }
 
     $stmt->close();
