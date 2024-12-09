@@ -2,37 +2,35 @@
 session_start();
 require "/xampp/htdocs/Ease_Slip/assets/connection.php";
 
-// Check if the product ID is set
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
-    // Step 1: Update transaction table to set productID to NULL for the given product
-    $updateTransactionQuery = "UPDATE transaction SET productID = NULL WHERE productID = ?";
-    $stmt = $conn->prepare($updateTransactionQuery);
+    // Step 1: Remove the product reference in stock table
+    $updateStockQuery = "DELETE FROM stock WHERE productID = ?";
+    $stmt = $conn->prepare($updateStockQuery);
     $stmt->bind_param("i", $id);
 
     if (!$stmt->execute()) {
-        echo "Error updating transactions: " . $stmt->error;
+        echo "Error clearing stock references: " . $stmt->error;
         $stmt->close();
         $conn->close();
-        exit;  // Exit if updating transaction fails
+        exit;
     }
 
-    // Step 2: Delete the product from the product table
+    // Step 2: Delete product from the product table
     $deleteProductQuery = "DELETE FROM product WHERE productID = ?";
     $stmt = $conn->prepare($deleteProductQuery);
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        echo "Item deleted successfully!";
+        echo "Product successfully deleted!";
     } else {
-        echo "Error deleting item: " . $stmt->error;
+        echo "Error deleting product: " . $stmt->error;
     }
 
-    // Clean up
     $stmt->close();
 } else {
-    echo "Error: Missing product ID.";
+    echo "Product ID is missing.";
 }
 
 $conn->close();
