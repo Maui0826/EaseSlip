@@ -10,6 +10,7 @@
   font-size: 1.2rem;
   box-sizing: border-box;
   overflow-y: auto; /* Scroll if content exceeds max-height */
+  background-color: #f5f5f5;
 }
 
 /* Header container for title and date */
@@ -78,7 +79,7 @@
 
 .product-item img {
   width: 100%;
-  height: auto;
+  height: 250px;
   border-radius: 8px; /* Rounded corners for the image */
   margin-bottom: 10px;
 }
