@@ -3,9 +3,9 @@ session_start();
 require '/xampp/htdocs/Ease_Slip/assets/connection.php';  // Adjust the path as necessary
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $newPassword = $_POST['newPassword'];
-    $confirmPassword = $_POST['confirmPassword'];
-    $email = $_POST['email'];  // You should pass the email when submitting
+    $newPassword = $_POST['newPassword'] ?? null;
+    $confirmPassword = $_POST['confirmPassword'] ?? null;
+    $email = $_POST['email'] ?? null;  // Ensure this field is passed in the form
 
     if ($newPassword === $confirmPassword) {
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);  // Hash the password
@@ -16,12 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("ss", $hashedPassword, $email);
 
         if ($stmt->execute()) {
-            echo "Password reset successfully.";
+            echo "<script>
+                    alert('Password reset successfully.');
+                    window.location.href = '/LOGIN/login.html';
+                  </script>";
+            exit;
         } else {
-            echo "Error resetting password.";
+            echo "<script>
+                    alert('Error resetting password.');
+                    window.location.href = '/RESETPASSWORD/reset-password.html';
+                  </script>";
+            exit;
         }
     } else {
-        echo "Passwords do not match.";
+        echo "<script>
+                alert('Passwords do not match.');
+                window.location.href = '/RESETPASSWORD/reset-password.html';
+              </script>";
+        exit;
     }
 }
 ?>

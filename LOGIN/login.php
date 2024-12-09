@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     if (empty($username) || empty($password)) {
-        echo "Please fill in both fields.";
+        echo "<script>alert('Please fill in both fields.'); window.location.href = '/LOGIN/login.html';</script>";
         exit;
     }
 
@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username_id'] = $user['username'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $username === 'admin' ? 'admin' : 'user'; // Pass role to the session
-            
+            $_SESSION['role'] = $username === 'admin' ? 'admin' : 'user';
+
             if ($username === 'admin') {
                 header("Location: /DashboardMenu/dashboardM.html");
             } else {
@@ -33,10 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             exit;
         } else {
-            echo "Incorrect password. Please try again.";
+            echo "<script>alert('Incorrect password.'); window.location.href = '/LOGIN/login.html';</script>";
+            exit;
         }
     } else {
-        echo "No account found with the provided username.";
+        echo "<script>alert('No account found with the provided username.'); window.location.href = '/LOGIN/login.html';</script>";
+        exit;
     }
 
     $stmt->close();
