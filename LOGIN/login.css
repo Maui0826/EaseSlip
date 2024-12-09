@@ -7,13 +7,57 @@
   --input-glow: rgba(91, 200, 172, 0.8); /* Derived from secondary (#5BC8AC) */
   --button: #379683; /* Button color from the provided palette */
 }
-  
+
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Loading Screen Styling */
+.loading {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(
+    var(--button),
+    var(--background-dark)
+  );
+  transition: transform 0.75s ease-out; /* Smooth exit animation */
+  z-index: 9999;
+}
+
+.loading-title {
+  color: #fff;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .085em;
+}
+
+.loading-progress {
+  height: 11px;
+  background: #fff;
+  width: 0%; /* Initial width of 0% */
+  top: 0;
+  position: absolute;
+  transition: width 1s ease-out; /* Smooth animation of width */
+}
+
+
+.loading-progress {
+  width: 0;
+  transition: width 1s;
+}
+
 
 body {
   font-family: Arial, sans-serif;
@@ -52,7 +96,7 @@ body {
   bottom: 20%;
   right: 15%;
   filter: blur(150px);
-  z-index: 1;
+  z-index: -1;
 }
 
 .container {
@@ -126,11 +170,15 @@ body {
   width: 70%;
   margin: 10px auto;
   font-size: 0.9rem;
+  z-index: 2;
+
 }
 
 .remember-forgot a {
   color: var(--text-light);
   text-decoration: underline;
+  position: relative;
+  z-index: 2;
 }
 
 .btn {
