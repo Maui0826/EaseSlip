@@ -292,7 +292,7 @@ $('#customer-payment').on('input', function () {
     const paidAmount = parseFloat($(this).val());
     const grandTotal = parseFloat($('#grand-total').text());
     const change = paidAmount >= grandTotal ? (paidAmount - grandTotal).toFixed(2) : 0.00;
-    $('#change').text(change);
+    $('#change').text("Change: " + change);
 });
 $(document).ready(fetchCategories);
 
